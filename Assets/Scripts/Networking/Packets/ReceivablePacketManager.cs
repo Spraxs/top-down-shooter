@@ -1,50 +1,26 @@
 ﻿
+using System;
+
 public class ReceivablePacketManager
 {
 
+    private static readonly DateTime Jan1st1970 = new DateTime
+        (1970, 1, 1, 0, 0, 0, DateTimeKind.Local);
+
+    public static long CurrentTimeMillis()
+    {
+        return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
+    }
+
     public static void handle(ReceivablePacket packet)
     {
+        UnityEngine.Debug.Log("Packet received id: " + packet.ReadShort());
 
+        NetworkManager.Instance.ChannelSend(new PingServer(packet.ReadLong()));
         switch (packet.ReadShort())
         {
-            case 1:
+            case 0:
                 // AccountAuthenticationResult.notify(packet);
-                break;
-
-            case 2:
-                // CharacterSelectionInfoResult.notify(packet);
-                break;
-
-            case 3:
-                // CharacterCreationResult.notify(packet);
-                break;
-
-            case 4:
-                // CharacterDeletionResult.notify(packet);
-                break;
-
-            case 5:
-               // EnterServerInformation.notify(packet);
-                break;
-
-            case 6:
-               // PlayerInformation.notify(packet);
-                break;
-
-            case 7:
-               // DeleteObject.notify(packet);
-                break;
-
-            case 8:
-                // Logout.notify(packet);
-                break;
-
-            case 9:
-               // MoveToLocation.notify(packet);
-                break;
-
-            case 10:
-                // ChatResult.notify(packet);
                 break;
         }
     }

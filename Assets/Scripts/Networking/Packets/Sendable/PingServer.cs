@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class PingServer : SendablePacket
 {
-    public PingServer(long beginPingTime)
+    public PingServer(long time)
     {
         WriteShort(0);
-        WriteLong(beginPingTime);
+
+        WriteLong(time);
     }
 }

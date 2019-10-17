@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections;
 using System.Net.Sockets;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.Networking;
 
 public class NetworkManager : MonoBehaviour
 {
@@ -9,7 +11,7 @@ public class NetworkManager : MonoBehaviour
     public static NetworkManager Instance;
 
     // Connection settings.
-    string serverIP = "31.151.54.213";
+    string serverIP = "116.203.114.52";
     int serverPort = 25565;
     int connectionTimeOut = 5000;
 
@@ -31,9 +33,49 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
-        bool connect = ConnectToServer();
+        //bool connect = ConnectToServer();
 
-        Debug.Log(connect);
+       // Debug.Log(connect);
+
+       //StartCoroutine(GetText());
+       StartCoroutine(SendText());
+    }
+
+    IEnumerator GetText()
+    {
+        UnityWebRequest www = UnityWebRequest.Get("http://spraxs.nl:25565/");
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // 接收文本数据，并打印到日志中
+            Debug.Log(www.downloadHandler.text);
+
+            // 接收二进制数据
+            byte[] results = www.downloadHandler.data;
+        }
+    }
+
+    IEnumerator SendText()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("id", "test");
+
+        UnityWebRequest www = UnityWebRequest.Post("http://spraxs.nl:25565/", form);
+        yield return www.SendWebRequest();
+
+        if (www.isNetworkError || www.isHttpError)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
     }
 
     private void Awake()

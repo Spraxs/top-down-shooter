@@ -14,13 +14,10 @@ public class ReceivablePacketManager
 
     public static void handle(ReceivablePacket packet)
     {
-        UnityEngine.Debug.Log("Packet received id: " + packet.ReadShort());
-
-        NetworkManager.Instance.ChannelSend(new PingServer(packet.ReadLong()));
         switch (packet.ReadShort())
         {
             case 0:
-                // AccountAuthenticationResult.notify(packet);
+                NetworkManager.Instance.ChannelSend(new PingServer(packet.ReadLong()));
                 break;
         }
     }

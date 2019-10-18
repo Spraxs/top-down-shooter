@@ -11,8 +11,8 @@ public class NetworkManager : MonoBehaviour
     public static NetworkManager Instance;
 
     // Connection settings.
-    string serverIP = "116.203.114.52";
-    int serverPort = 25565;
+    string serverIP = "127.0.0.1";
+    int serverPort = 26648;
     int connectionTimeOut = 5000;
 
     // For socket read.
@@ -33,12 +33,12 @@ public class NetworkManager : MonoBehaviour
 
     private void Start()
     {
-        //bool connect = ConnectToServer();
+        bool connect = ConnectToServer();
 
-       // Debug.Log(connect);
+        Debug.Log(connect);
 
        //StartCoroutine(GetText());
-       StartCoroutine(SendText());
+      // StartCoroutine(SendText());
     }
 
     IEnumerator GetText()

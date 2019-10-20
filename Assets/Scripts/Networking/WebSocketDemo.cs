@@ -12,7 +12,7 @@ public class WebSocketDemo : MonoBehaviour {
 	void Start () {
 
         // Create WebSocket instance
-        WebSocket ws = WebSocketFactory.CreateInstance("ws://echo.websocket.org");
+        WebSocket ws = WebSocketFactory.CreateInstance("ws://127.0.0.1:8080//");
 
         // Add OnOpen event listener
         ws.OnOpen += () =>

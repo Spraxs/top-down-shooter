@@ -14,6 +14,8 @@ public class WebManager : MonoBehaviour
     int serverPort = 26648;
     int connectionTimeOut = 5000;
 
+    private bool connected = false;
+
     // WebSocket
     private WebSocket ws;
 
@@ -27,6 +29,8 @@ public class WebManager : MonoBehaviour
         ws = WebSocketFactory.CreateInstance("ws://127.0.0.1:8080//");
 
         RegisterWebSocketListeners(ws);
+
+        ws.Connect();
     }
 
     private void OnApplicationQuit()
@@ -42,7 +46,10 @@ public class WebManager : MonoBehaviour
             Debug.Log("WS connected!");
             Debug.Log("WS state: " + ws.GetState().ToString());
 
-            ws.Send(Encoding.UTF8.GetBytes("Hello from Unity 3D!"));
+
+            connected = true;
+
+            // ws.Send(Encoding.UTF8.GetBytes("Hello from Unity 3D!"));
         };
 
         // Add OnMessage event listener
@@ -67,7 +74,7 @@ public class WebManager : MonoBehaviour
 
     private void DisconnectFromServer()
     {
-        ws.Close();
+        if (connected) ws.Close();
     }
 
 }

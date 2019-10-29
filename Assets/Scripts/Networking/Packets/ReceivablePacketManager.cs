@@ -1,5 +1,6 @@
 ﻿
 using System;
+using UnityEngine;
 
 public class ReceivablePacketManager
 {
@@ -17,7 +18,10 @@ public class ReceivablePacketManager
         switch (packet.ReadShort())
         {
             case 0:
-                NetworkManager.Instance.ChannelSend(new PingServer(packet.ReadLong()));
+                Debug.Log("Player connected!");
+                break;
+            case 1:
+                Debug.Log("Player disconnected!");
                 break;
         }
     }

@@ -130,7 +130,7 @@ public class NetworkManager : MonoBehaviour
                 socket.Receive(bufferData);
 
                 // Handle packet.
-                ReceivablePacketManager.handle(new ReceivablePacket(Encryption.Decrypt(bufferData)));
+                ReceivablePacketManager.Handle(new ReceivablePacket(Encryption.Decrypt(bufferData)));
             }
         }
     }

@@ -3,6 +3,7 @@ using UnityEngine;
 
 // Use plugin namespace
 using HybridWebSocket;
+using System;
 
 public class WebManager : MonoBehaviour
 {
@@ -38,6 +39,14 @@ public class WebManager : MonoBehaviour
         DisconnectFromServer();
     }
 
+    private static readonly DateTime Jan1st1970 = new DateTime
+    (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+
+    public static long CurrentTimeMillis()
+    {
+        return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
+    }
+
     private void RegisterWebSocketListeners(WebSocket ws)
     {
         // Add OnOpen event listener
@@ -57,7 +66,26 @@ public class WebManager : MonoBehaviour
         WebSocketListener listener = new WebSocketListener();
 
 
-        ws.OnMessage += listener.HandlePacketData;
+        ws.OnMessage += (byte[] bytes) =>
+        {
+            string data = Encoding.UTF8.GetString(bytes);
+
+            long javaTime = long.Parse( data);
+
+
+
+            Debug.Log("WS received message: " + data);
+
+            Debug.Log("Time: " + (CurrentTimeMillis() - javaTime));
+
+            ws.Close();
+            /*
+            ReceivablePacket receivablePacket = new ReceivablePacket(bytes);
+
+            ReceivablePacketManager.Handle(receivablePacket);
+
+    */
+        };
 
         // Add OnError event listener
         ws.OnError += (string errMsg) =>
@@ -69,6 +97,8 @@ public class WebManager : MonoBehaviour
         ws.OnClose += (WebSocketCloseCode code) =>
         {
             Debug.Log("WS closed with code: " + code.ToString());
+
+            connected = false;
         };
     }
 

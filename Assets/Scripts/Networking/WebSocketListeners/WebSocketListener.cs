@@ -8,9 +8,6 @@ public class WebSocketListener
 
     public void HandlePacketData(byte[] bytes)
     {
-        ReceivablePacket receivablePacket = new ReceivablePacket(bytes);
-
-        ReceivablePacketManager.handle(receivablePacket);
     }
 
 }

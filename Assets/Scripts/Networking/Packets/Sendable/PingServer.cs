@@ -6,7 +6,7 @@ public class PingServer : SendablePacket
 {
     public PingServer(long time)
     {
-        WriteShort(0);
+        WriteShort(1);
 
         WriteLong(time);
     }

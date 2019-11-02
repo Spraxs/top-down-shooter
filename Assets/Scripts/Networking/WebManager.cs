@@ -39,16 +39,15 @@ public class WebManager : MonoBehaviour
         DisconnectFromServer();
     }
 
-    private static readonly DateTime Jan1st1970 = new DateTime
-    (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
-
-    public static long CurrentTimeMillis()
+    public void SendPacket(SendablePacket sendablePacket)
     {
-        return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
+        ws.Send(sendablePacket.GetSendableBytes());
     }
 
     private void RegisterWebSocketListeners(WebSocket ws)
     {
+
+
         // Add OnOpen event listener
         ws.OnOpen += () =>
         {
@@ -58,7 +57,7 @@ public class WebManager : MonoBehaviour
 
             connected = true;
 
-            // ws.Send(Encoding.UTF8.GetBytes("Hello from Unity 3D!"));
+            SendPacket(new PacketOutPlayerConnect());
         };
 
         // Add OnMessage event listener
@@ -68,15 +67,6 @@ public class WebManager : MonoBehaviour
 
         ws.OnMessage += (byte[] bytes) =>
         {
-            string data = Encoding.UTF8.GetString(bytes);
-
-            long javaTime = long.Parse( data);
-
-
-
-            Debug.Log("WS received message: " + data);
-
-            Debug.Log("Time: " + (CurrentTimeMillis() - javaTime));
 
             ws.Close();
             /*

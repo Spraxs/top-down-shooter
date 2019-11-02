@@ -20,6 +20,9 @@ public class WebManager : MonoBehaviour
     // WebSocket
     private WebSocket ws;
 
+    // PacketManager
+    private PacketManager packetManager;
+
     void OnEnable()
     {
         Instance = this;
@@ -27,6 +30,11 @@ public class WebManager : MonoBehaviour
 
     void Start()
     {
+
+        PacketManager.Init();
+
+        packetManager = PacketManager.Instance;
+
         ws = WebSocketFactory.CreateInstance("ws://127.0.0.1:8080//");
 
         RegisterWebSocketListeners(ws);
@@ -39,9 +47,9 @@ public class WebManager : MonoBehaviour
         DisconnectFromServer();
     }
 
-    public void SendPacket(SendablePacket sendablePacket)
+    public void SendPacket(PacketOut packetOut)
     {
-        ws.Send(sendablePacket.GetSendableBytes());
+        ws.Send(packetOut.GetSendableBytes());
     }
 
     private void RegisterWebSocketListeners(WebSocket ws)
@@ -67,14 +75,7 @@ public class WebManager : MonoBehaviour
 
         ws.OnMessage += (byte[] bytes) =>
         {
-
-            ws.Close();
-            /*
-            ReceivablePacket receivablePacket = new ReceivablePacket(bytes);
-
-            ReceivablePacketManager.Handle(receivablePacket);
-
-    */
+            packetManager.HandlePacketIn(bytes);
         };
 
         // Add OnError event listener

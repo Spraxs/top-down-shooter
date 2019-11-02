@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PingServer : SendablePacket
+public class PingServer : PacketOut
 {
     public PingServer(long time)
     {

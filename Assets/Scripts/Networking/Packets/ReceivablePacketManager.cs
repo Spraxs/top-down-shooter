@@ -5,7 +5,7 @@ using UnityEngine;
 public class ReceivablePacketManager
 {
 
-    public static void Handle(ReceivablePacket packet)
+    public static void Handle(PacketIn packet)
     {
         switch (packet.ReadShort())
         {

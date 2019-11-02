@@ -3,12 +3,12 @@ using System;
 using System.IO;
 using System.Text;
 
-public class SendablePacket
+public class PacketOut
 {
 
     private MemoryStream memoryStream;
 
-    public SendablePacket()
+    public PacketOut()
     {
         memoryStream = new MemoryStream();
     }

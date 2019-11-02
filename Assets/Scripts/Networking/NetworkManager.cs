@@ -130,12 +130,12 @@ public class NetworkManager : MonoBehaviour
                 socket.Receive(bufferData);
 
                 // Handle packet.
-                ReceivablePacketManager.Handle(new ReceivablePacket(Encryption.Decrypt(bufferData)));
+                //ReceivablePacketManager.Handle(new PacketIn(Encryption.Decrypt(bufferData)));
             }
         }
     }
 
-    public void ChannelSend(SendablePacket packet)
+    public void ChannelSend(PacketOut packet)
     {
         if (SocketConnected())
         {

@@ -49,7 +49,16 @@ public class WebManager : MonoBehaviour
 
     public void SendPacket(PacketOut packetOut)
     {
-        ws.Send(packetOut.GetSendableBytes());
+        // Prepare field values
+        packetOut.onDataPrepare();
+
+        // Write field values to input array
+        packetOut.HandlePacketData();
+
+        // Get bytes from input array
+        byte[] bytes = packetOut.GetSendableBytes();;
+
+        ws.Send(bytes);
     }
 
     private void RegisterWebSocketListeners(WebSocket ws)

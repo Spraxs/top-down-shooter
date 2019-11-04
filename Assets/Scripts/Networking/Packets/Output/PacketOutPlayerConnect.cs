@@ -1,22 +1,14 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PacketOutPlayerConnect : PacketOut
 {
-    public PacketOutPlayerConnect()
-    {
-        WriteShort(0);
 
-        WriteInt(5);
+    public int level;
 
-        WriteDouble(1.0D);
+    public double speed;
+    public double damage;
 
-        WriteDouble(2.5D);
-
-        WriteLong(CurrentTimeMillis());
-    }
+    public long timeInMillis;
 
     private static readonly DateTime Jan1st1970 = new DateTime
     (1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
@@ -24,5 +16,17 @@ public class PacketOutPlayerConnect : PacketOut
     public static long CurrentTimeMillis()
     {
         return (long)(DateTime.UtcNow - Jan1st1970).TotalMilliseconds;
+    }
+
+    public override void onDataPrepare()
+    {
+        id = 0; // TODO set this value with attribute
+
+        level = 5;
+
+        speed = 1.0d;
+        damage = 2.5d;
+
+        timeInMillis = CurrentTimeMillis();
     }
 }

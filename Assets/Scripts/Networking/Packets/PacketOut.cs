@@ -3,15 +3,14 @@ using System;
 using System.IO;
 using System.Text;
 
-public class PacketOut
+public abstract class PacketOut
 {
 
-    private MemoryStream memoryStream;
+    private MemoryStream memoryStream = new MemoryStream();
 
-    public PacketOut()
-    {
-        memoryStream = new MemoryStream();
-    }
+    public abstract void onDataPrepare();
+
+
 
     public void WriteString(String value)
     {

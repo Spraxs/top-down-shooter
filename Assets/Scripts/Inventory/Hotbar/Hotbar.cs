@@ -17,13 +17,8 @@ public class Hotbar : MonoBehaviour
 
     void Start()
     {
+        // When Inventory updates, the Hotbar also updates
         inventory.updateInventory += OnInventoryUpdate;
-    }
-
-    // Updates itemslot UI
-    private void UpdateItemSlotUi(HotbarSlot hotbarSlot, ItemStack itemStack)
-    {
-        hotbarSlot.UpdateItemUi(itemStack);
     }
 
     // Looks for correct slot on inventory update
@@ -33,14 +28,27 @@ public class Hotbar : MonoBehaviour
         {
             if (displayedSlot.inventorySlot == slot)
             {
-                ItemStack itemStack = inventory.contents[slot];
-                UpdateItemSlotUi(displayedSlot, itemStack);
+                if (inventory.contents.TryGetValue(slot, out var itemStack))
+                {
+                    UpdateItemSlotUi(displayedSlot, itemStack);
+                }
+                else
+                {
+                    UpdateItemSlotUi(displayedSlot, null);
+                }
 
                 return;
             }
         }
     }
 
+    // Updates itemslot UI
+    private void UpdateItemSlotUi(HotbarSlot hotbarSlot, ItemStack itemStack)
+    {
+        hotbarSlot.UpdateItemUi(itemStack);
+    }
+
+    // Resets all selected slots from hotbar
     public void ResetSelectedSlots()
     {
         for (int i = 0; i < displayedSlots.Count; i++)

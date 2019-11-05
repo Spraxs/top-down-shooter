@@ -1,15 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.EventSystems;
+using UnityEngine.Experimental.PlayerLoop;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour
+public class InventorySlot : MonoBehaviour, IPointerClickHandler
 {
+    // Inventory slot id 
     public int slot;
 
+    // Inventory
     private Inventory inventory;
 
+    // Text for display of item amount
     [SerializeField]
     private Text itemAmount;
 
+    // Image for display of item sprite
     [SerializeField]
     private Image itemImage;
 
@@ -63,7 +70,14 @@ public class InventorySlot : MonoBehaviour
         }
         if (slot == _slot)
         {
-            UpdateItem(inventory.contents[_slot]);
+            if (!inventory.contents.TryGetValue(_slot, out var itemStack))
+            {
+                UpdateItem(null);
+            }
+            else
+            {
+                UpdateItem(itemStack);
+            }
         }
     }
 
@@ -88,5 +102,16 @@ public class InventorySlot : MonoBehaviour
         }
        
         itemImage.sprite = itemStack.sprite;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (eventData.button == PointerEventData.InputButton.Left)
+        {
+            Debug.Log("Left");
+        } else if (eventData.button == PointerEventData.InputButton.Right)
+        {
+            inventory.RemoveItemsFromSlot(slot, 1);
+        }
     }
 }

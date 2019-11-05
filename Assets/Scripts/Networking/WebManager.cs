@@ -11,8 +11,8 @@ public class WebManager : MonoBehaviour
     public static WebManager Instance;
 
     // Connection settings.
-    string serverIP = "127.0.0.1";
-    int serverPort = 26648;
+    string serverIP = "51.68.175.9";
+    int serverPort = 8080;
     int connectionTimeOut = 5000;
 
     private bool connected = false;
@@ -35,7 +35,7 @@ public class WebManager : MonoBehaviour
 
         packetManager = PacketManager.Instance;
 
-        ws = WebSocketFactory.CreateInstance("ws://127.0.0.1:8080//");
+        ws = WebSocketFactory.CreateInstance("ws://" + serverIP + ":" + serverPort + "//");
 
         RegisterWebSocketListeners(ws);
 

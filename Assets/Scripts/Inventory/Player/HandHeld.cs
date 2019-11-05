@@ -1,12 +1,22 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
+
+
 
 public class HandHeld : MonoBehaviour
 {
     [SerializeField]
     private InventoryItem inventoryItem;
 
+    private SpriteRenderer spriteRenderer;
+
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+
+        spriteRenderer.sprite = inventoryItem.sprite;
+    }
+
+    // Activate gameObject so player can see item in hand.
     public bool ActivateItem(ItemStack itemStack)
     {
         if (itemStack == null)

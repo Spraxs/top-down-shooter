@@ -6,3 +6,12 @@
 
 [InventoryItem](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/InventoryItem.cs)
  is a scriptable object that stores data for a ItemStack, this is because I want to set the data of ItemStack within the inspector. 
+ 
+ ### Inventory
+ [Inventory](https://github.com/Spraxs/top-down-shooter/tree/master/Assets/Scripts/Inventory/Inventory) is the component that handles all Inventory logic such as item storage, removing items, getting items and contains InventoryUpdate delegates so UI classes can listen to the updates.
+ 
+ [InventorySlot](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/Inventory/InventorySlot.cs) is a component for every UI slot of the Inventory it handles item display, such as item sprite display, item amount etc. This component listens to the InventoryUpdate delegate in the Inventory component.
+ 
+ ### Hotbar
+ 
+ ### Player

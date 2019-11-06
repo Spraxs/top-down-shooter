@@ -1,6 +1,6 @@
-### Inventory System
+# Inventory System
 
-## Item Objects
+### Item Objects
 [ItemStack](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/ItemStack.cs)
  is an object class that stores data about a item, such as amount, id and sprite. This is not a scriptable object because I want to change the data for the object itself and not the 'prefab' of a scripable object.
 

@@ -37,45 +37,6 @@ public class NetworkManager : MonoBehaviour
 
         Debug.Log(connect);
 
-       //StartCoroutine(GetText());
-      // StartCoroutine(SendText());
-    }
-
-    IEnumerator GetText()
-    {
-        UnityWebRequest www = UnityWebRequest.Get("http://spraxs.nl:25565/");
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            // 接收文本数据，并打印到日志中
-            Debug.Log(www.downloadHandler.text);
-
-            // 接收二进制数据
-            byte[] results = www.downloadHandler.data;
-        }
-    }
-
-    IEnumerator SendText()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("id", "test");
-
-        UnityWebRequest www = UnityWebRequest.Post("http://spraxs.nl:25565/", form);
-        yield return www.SendWebRequest();
-
-        if (www.isNetworkError || www.isHttpError)
-        {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
-        }
     }
 
     private void Awake()
@@ -169,12 +130,12 @@ public class NetworkManager : MonoBehaviour
                 socket.Receive(bufferData);
 
                 // Handle packet.
-                ReceivablePacketManager.handle(new ReceivablePacket(Encryption.Decrypt(bufferData)));
+                //ReceivablePacketManager.Handle(new PacketIn(Encryption.Decrypt(bufferData)));
             }
         }
     }
 
-    public void ChannelSend(SendablePacket packet)
+    public void ChannelSend(PacketOut packet)
     {
         if (SocketConnected())
         {

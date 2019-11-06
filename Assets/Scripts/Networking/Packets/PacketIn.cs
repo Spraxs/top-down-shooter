@@ -1,16 +1,62 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using UnityEngine;
 
-public class ReceivablePacket
+public abstract class PacketIn
 {
 
     private MemoryStream memoryStream;
 
-    public ReceivablePacket(byte[] bytes)
+    public PacketIn(MemoryStream _memoryStream)
     {
-        memoryStream = new MemoryStream(bytes);
+        memoryStream = _memoryStream;
     }
+
+
+    public abstract void OnDataHandled();
+
+    public object ReadNext(Type type)
+    {
+
+        if (type.Equals(typeof(string)))
+        {
+            return ReadString();
+        }
+
+        if (type.Equals(typeof(byte)))
+        {
+            return ReadByte();
+        }
+
+        if (type.Equals(typeof(short)))
+        {
+            return ReadShort();
+        }
+
+        if (type.Equals(typeof(int)))
+        {
+            return ReadInt();
+        }
+
+        if (type.Equals(typeof(long)))
+        {
+            return ReadLong();
+        }
+
+        if (type.Equals(typeof(float)))
+        {
+            return ReadFloat();
+        }
+
+        if (type.Equals(typeof(double)))
+        {
+            return ReadDouble();
+        }
+
+        return null;
+    }
+
 
     public string ReadString()
     {

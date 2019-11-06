@@ -5,25 +5,30 @@ using UnityEngine.UI;
 
 public class HotbarSlot : MonoBehaviour
 {
-
+    // Slot id of hotbar
     public int inventorySlot;
 
+    // Text for amount of item display
     [SerializeField] Text itemAmountText;
 
+    // Image for item sprite display
     [SerializeField] Image itemImage;
 
-    private Image image;
+    // Image for background selected color
+    private Image backgroundImage;
 
+    // Hotbar
     private Hotbar hotbar;
 
-
+    // If item is selected
     [HideInInspector]
     public bool selected;
 
     void Awake()
     {
         hotbar = GetComponentInParent<Hotbar>();
-        image = GetComponent<Image>();
+        backgroundImage = GetComponent<Image>();
+
 
         itemImage.sprite = hotbar.emptySlotSprite;
         itemAmountText.text = "";
@@ -58,7 +63,7 @@ public class HotbarSlot : MonoBehaviour
     public void SelectItem()
     {
         hotbar.ResetSelectedSlots();
-        image.color = hotbar.selectedColor;
+        backgroundImage.color = hotbar.selectedColor;
 
         selected = true;
 
@@ -68,7 +73,7 @@ public class HotbarSlot : MonoBehaviour
     // Resets selected color
     public void ResetSlotColor()
     {
-        image.color = hotbar.defaultColor;
+        backgroundImage.color = hotbar.defaultColor;
         selected = false;
     }
 

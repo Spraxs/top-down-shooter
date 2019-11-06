@@ -14,6 +14,7 @@
  
  ### Hotbar
  [Hotbar](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/Hotbar/Hotbar.cs) is a component that mirrors the Inventory contents by listening to the UpdateInventory delegate.
+ 
  [HotbarSlot](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/Hotbar/HotbarSlot.cs) is a component for every UI slot of the Hotbar it handles item display, such as item sprite display, item amount etc. The Hotbar component calls function in this component to update the UI for the item display. This component handles item selection and calls a SelectItemAction delegate to display a items in the player's hand.
  
  ### Player

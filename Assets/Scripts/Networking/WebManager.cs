@@ -11,7 +11,9 @@ public class WebManager : MonoBehaviour
     public static WebManager Instance;
 
     // Connection settings.
+    [SerializeField]
     string serverIP = "51.68.175.9";
+    [SerializeField]
     int serverPort = 8080;
     int connectionTimeOut = 5000;
 

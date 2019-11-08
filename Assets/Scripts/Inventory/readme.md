@@ -1,6 +1,6 @@
 # Inventory System
 
-## Features
+Features
 ======
 
 ### Item Objects
@@ -25,6 +25,6 @@
 
 * [PlayerInventory](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/Player/PlayerInventory.cs) is a component that sits on the player. It contains the player his hand object, hotbar for listening to the SelectItemAction and UpdateInventory delegate and also contains all the HandHeld components the player can hold. This component contains the logic to update the holding items and to hold other items.
 
-## Software Analyse
+Software Analyse
 ======
 

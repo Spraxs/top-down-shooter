@@ -1,13 +1,13 @@
 # Inventory System
 
 Features
-======
+------
 
 ### Item Objects
 * [ItemStack](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/ItemStack.cs)
  is an object class that stores data about a item, such as amount, id and sprite. This is not a scriptable object because I want to change the data for the object itself and not the 'prefab' of a scripable object.
 
-[InventoryItem](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/InventoryItem.cs)
+* [InventoryItem](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/InventoryItem.cs)
  is a scriptable object that stores data for a ItemStack, this is because I want to set the data of ItemStack within the inspector. 
  
  ### Inventory
@@ -26,5 +26,5 @@ Features
 * [PlayerInventory](https://github.com/Spraxs/top-down-shooter/blob/master/Assets/Scripts/Inventory/Player/PlayerInventory.cs) is a component that sits on the player. It contains the player his hand object, hotbar for listening to the SelectItemAction and UpdateInventory delegate and also contains all the HandHeld components the player can hold. This component contains the logic to update the holding items and to hold other items.
 
 Software Analyse
-======
+------
 

@@ -27,4 +27,32 @@ Features
 
 Software Analyse
 ------
+Ik heb ervoor gekozen om dit systeem in Unity te maken, omdat ik al bezig was met dit project en een Inventory System nodig had. Het was mooi meegenomen dat dit ook nog een opdracht was voor school!
 
+Zelf heb ik ook het meeste ervaring in Unity kwa game engines. Daarom heb ik bijvoorbeeld niet voor Unreal Engine gekozen, omdat ik hier nog te weinig ervaring in heb om een Inventory System te maken. Natuurlijk zal het mogelijk zijn, maar vond dit onzin aangezien de back-end structuur van een Inventory System bij elke taal wel op het zelfde neer komt (als je het aan mij vraagt).
+
+In Java heb ik zelf veel ervaring maar heb hier toch niet voor gekozen, omdat ik er graag UI aanvast wou maken en dit nogal veel werk is vergeleken met Unity. Ook gebruik ik Java zelf meer voor server-side calculaties en database handling en laat ik de echte gameplay systemen liever over aan een game engine.
+
+Leerdoelen
+------
+* Delegates voor Inventory updates.
+* Objecten maken voor item data.
+* Player item in hand veranderen.
+* Nieuwe items maken met ScripableObjects
+* Hotbar die specifieke slots van inventory weerspiegeld.
+* Usable items door middel van geactiveerde scripts op GameObject.
+* Opslaan van objecten onder een ID.
+
+Planning
+------
+
+| Maandag  | Dinsdag | Woensdag | Donderdag | Vrijdag |
+| ------------- | ------------- |
+| Back-end voor inventory, item opslag en inventory edit functies af | Inventory UI d.m.v Action delegates af | Hotbar UI d.m.v Action delegates af | Player item in hand functie d.m.v Action delegates af | Bug fixes |
+
+Bronnen
+------
+* [Inventory UI voorbeeld](https://www.youtube.com/watch?v=-xB4xEmGtCY)
+* [Dictionary voor item opslag](https://www.tutorialsteacher.com/csharp/csharp-dictionary)
+* [Action delegates](https://www.tutorialsteacher.com/csharp/csharp-action-delegate)
+* [Right-click inventory](https://forum.unity.com/threads/can-the-ui-buttons-detect-a-right-mouse-click.279027/)

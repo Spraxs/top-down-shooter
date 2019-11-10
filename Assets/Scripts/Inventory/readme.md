@@ -29,9 +29,9 @@ Software Analyse
 ------
 Ik heb ervoor gekozen om dit systeem in Unity te maken, omdat ik al bezig was met dit project en een Inventory System nodig had. Het was mooi meegenomen dat dit ook nog een opdracht was voor school!
 
-Zelf heb ik ook het meeste ervaring in Unity kwa game engines. Daarom heb ik bijvoorbeeld niet voor Unreal Engine gekozen, omdat ik hier nog te weinig ervaring in heb om een Inventory System te maken. Natuurlijk zal het mogelijk zijn, maar vond dit onzin aangezien de back-end structuur van een Inventory System bij elke taal wel op het zelfde neer komt (als je het aan mij vraagt).
+Zelf heb ik ook het meeste ervaring in Unity qua game engines. Daarom heb ik niet voor Unreal Engine gekozen, omdat ik hier nog te weinig ervaring in heb om een Inventory System te maken. Natuurlijk zal het mogelijk zijn, maar ik vond dit onzin aangezien de back-end structuur van een Inventory System bij elke taal wel op het zelfde neer komt (als je het aan mij vraagt).
 
-In Java heb ik zelf veel ervaring maar heb hier toch niet voor gekozen, omdat ik er graag UI aanvast wou maken en dit nogal veel werk is vergeleken met Unity. Ook gebruik ik Java zelf meer voor server-side calculaties en database handling en laat ik de echte gameplay systemen liever over aan een game engine.
+In Java heb ik zelf veel ervaring, maar ik heb hier toch niet voor gekozen. Omdat ik graag een Inventory System met UI wou maken en dit nogal veel werk is in Java vergeleken met Unity. Ook gebruik ik Java zelf meer voor server-side calculaties en database handling en laat ik de echte gameplay systemen liever aan een game engine over.
 
 Leerdoelen
 ------

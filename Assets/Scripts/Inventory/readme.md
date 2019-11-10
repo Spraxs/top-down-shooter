@@ -46,8 +46,8 @@ Leerdoelen
 Planning
 ------
 
-| Maandag  | Dinsdag | Woensdag | Donderdag | Vrijdag |
-| ------------- | ------------- |
+|    Maandag    |    Dinsdag    |    Woensdag    | Donderdag | Vrijdag |
+| ------------- | ------------- | ------------- | ------------- | ------------- |
 | Back-end voor inventory, item opslag en inventory edit functies af | Inventory UI d.m.v Action delegates af | Hotbar UI d.m.v Action delegates af | Player item in hand functie d.m.v Action delegates af | Bug fixes |
 
 Bronnen

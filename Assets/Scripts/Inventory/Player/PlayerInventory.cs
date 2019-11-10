@@ -52,7 +52,13 @@ public class PlayerInventory : MonoBehaviour
         {
 
             if (hotbar.inventory.contents.TryGetValue(slot, out ItemStack itemStack))
+            {
                 handHelds[i].ActivateItem(itemStack);
+            }
+            else
+            {
+                handHelds[i].gameObject.SetActive(false);
+            }
         }
     }
 

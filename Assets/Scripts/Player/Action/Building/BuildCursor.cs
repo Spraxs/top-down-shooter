@@ -25,11 +25,13 @@ public class BuildCursor : MonoBehaviour
 
     void OnDisable()
     {
+        if (cursorGameObject == null) return;
         cursorGameObject.SetActive(false);
     }
 
     void OnEnable()
     {
+        if (cursorGameObject == null) return;
         cursorGameObject.SetActive(true);
     }
 }

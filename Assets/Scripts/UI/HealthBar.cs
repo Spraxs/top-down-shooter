@@ -5,30 +5,40 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
+    private ClientManager clientManager;
+
     private Slider slider;
 
-    private PlayerHandler playerHandler;
+    private Client client;
 
     // Start is called before the first frame update
     void Start()
     {
         slider = GetComponent<Slider>();
-        playerHandler = FindObjectOfType<PlayerHandler>();
+        clientManager = ClientManager.Instance;
 
-        if (playerHandler != null)
-            slider.value = playerHandler.player.health / playerHandler.player.maxHealth;
+        if (clientManager == null) return;
+
+        if (client != null)
+            slider.value = client.health / client.maxHealth;
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (playerHandler == null) playerHandler = FindObjectOfType<PlayerHandler>();
+        if (clientManager == null)
+        {
+            clientManager = ClientManager.Instance;
+            return;
+        }
+
+        if (client == null) client = ClientManager.Instance.currentClient;
 
         float value = 0;
-        if (playerHandler != null)
+        if (client != null)
         {
 
-            value = playerHandler.player.health / playerHandler.player.maxHealth;
+            value = client.health / client.maxHealth;
         }
 
         if (slider.value != value)

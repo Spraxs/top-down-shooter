@@ -395,7 +395,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2405558105930653990}
   - component: {fileID: 2405558105930653985}
-  - component: {fileID: 7192707363900563688}
   - component: {fileID: 1718853646}
   - component: {fileID: 5590729658063836230}
   m_Layer: 0
@@ -455,7 +454,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 2025949597
-  m_SortingLayer: 5
+  m_SortingLayer: -5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: cea8edade77222247b5be379f644844a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -468,21 +467,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &7192707363900563688
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2405558105930653984}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7ffcda29bf09254aa9238059b48faa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemy: {fileID: 11400000, guid: a464ccabd9ae1a24c97e5f23bd1e1053, type: 2}
-  levelTest: {fileID: 7789038413864714547}
-  healthSlider: {fileID: 1089727684}
 --- !u!61 &1718853646
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class CameraHandler : MonoBehaviour
 {
-    private PlayerManager playerManager;
     [SerializeField] private GameObject playerObject;
 
     [SerializeField] private float speed;

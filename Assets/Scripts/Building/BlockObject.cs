@@ -12,14 +12,14 @@ public class BlockObject : ScriptableObject
     public AudioClip blockPlace;
     public AudioClip blockBreak;
 
-    private Player placedBlock;
+    private Client placedBlock;
 
-    public void SetPlacedBlock(Player player)
+    public void SetPlacedBlock(Client client)
     {
-        placedBlock = player;
+        placedBlock = client;
     }
 
-    public Player GetPlacedBlock()
+    public Client GetPlacedBlock()
     {
         return placedBlock;
     }

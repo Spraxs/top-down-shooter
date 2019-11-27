@@ -4,15 +4,17 @@ using UnityEngine;
 
 public class BuildHandler : MonoBehaviour
 {
-    [SerializeField]  private Grid grid;
+    private Grid grid;
 
-    [SerializeField] BlockManager blockManager;
+    private BlockManager blockManager;
 
     [SerializeField] private GameObject block;
 
     // Start is called before the first frame update
     void Start()
     {
+        grid = FindObjectOfType<Grid>();
+        blockManager = FindObjectOfType<BlockManager>();
         InputManager.inputAction += PlaceBlock;
     }
 

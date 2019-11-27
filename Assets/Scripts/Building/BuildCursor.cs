@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class BuildCursor : MonoBehaviour
 {
-    [SerializeField] private Grid grid;
-    [SerializeField] GameObject cursorGameObject;
+    private Grid grid;
+    private GameObject cursorGameObject;
+
+    void Start()
+    {
+        grid = FindObjectOfType<Grid>();
+        cursorGameObject = GameObject.FindGameObjectWithTag("Build Cursor");
+    }
 
     void FixedUpdate()
     {
+        if (cursorGameObject == null) return;
+
         Vector2 mousePos = new Vector3(Input.mousePosition.x, Input.mousePosition.y);
 
         Vector2 pos = Camera.main.ScreenToWorldPoint(mousePos);

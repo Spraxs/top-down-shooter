@@ -1,4 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections;
+using System.IO;
+
+using UnityEngine;
 
 [PacketId(0)]
 public class PacketInPlayerConnect : PacketIn
@@ -17,6 +20,7 @@ public class PacketInPlayerConnect : PacketIn
 
     public override void OnDataHandled()
     {
-        ClientManager.Instance.CreateClient(playerId, playerName, (float) posX, (float) posY);
+        ClientManager.Instance.CreateClient(playerId, playerName, (float)posX, (float)posY);
+
     }
 }

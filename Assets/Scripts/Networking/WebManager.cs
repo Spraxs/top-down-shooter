@@ -42,6 +42,7 @@ public class WebManager : MonoBehaviour
         RegisterWebSocketListeners(ws);
 
         ws.Connect();
+
     }
 
     private void OnApplicationQuit()
@@ -81,9 +82,6 @@ public class WebManager : MonoBehaviour
 
         // Add OnMessage event listener
 
-        WebSocketListener listener = new WebSocketListener();
-
-
         ws.OnMessage += (byte[] bytes) =>
         {
             packetManager.HandlePacketIn(bytes);
@@ -101,6 +99,8 @@ public class WebManager : MonoBehaviour
             Debug.Log("WS closed with code: " + code.ToString());
 
             connected = false;
+
+            //SendPacket(); Send player disconnect packet
         };
     }
 

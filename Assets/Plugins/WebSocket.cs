@@ -29,7 +29,7 @@ namespace HybridWebSocket
     /// Handler for an error event received from WebSocket.
     /// </summary>
     public delegate void WebSocketErrorEventHandler(string errorMsg);
-
+    
     /// <summary>
     /// Handler for WebSocket Close event.
     /// </summary>

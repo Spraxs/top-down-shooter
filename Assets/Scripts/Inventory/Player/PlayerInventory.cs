@@ -3,7 +3,7 @@
 public class PlayerInventory : MonoBehaviour
 {
     
-    public Hotbar hotbar;
+    [HideInInspector] public Hotbar hotbar;
 
     [SerializeField]
     public GameObject hand;
@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
 
     void Start()
     {
+        hotbar = FindObjectOfType<Hotbar>();
         handHelds = hand.GetComponentsInChildren<HandHeld>();
         hotbar.SelectItemAction += HoldItem;
         hotbar.inventory.updateInventory += UpdateItem;

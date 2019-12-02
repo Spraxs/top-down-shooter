@@ -124,8 +124,19 @@ public class ClientManager : MonoBehaviour
         return _onlineClients.Values.ToList();
     }
 
-    public void RemovePlayer(Client client)
+    public void RemoveClient(long playerId)
     {
-        _onlineClients.Remove(client.id);
+        if (playerId == currentClient.id)
+        {
+            currentClient = null;
+        }
+
+        Client client = _onlineClients[playerId];
+
+        // Remove client
+        _onlineClients.Remove(playerId);
+
+        // Destroy client
+        Destroy(client.gameObject);
     }
 }

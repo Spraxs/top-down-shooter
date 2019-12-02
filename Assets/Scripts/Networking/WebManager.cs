@@ -106,7 +106,9 @@ public class WebManager : MonoBehaviour
 
     private void DisconnectFromServer()
     {
-        if (connected) ws.Close();
+        if (connected) {
+            ws.Close();
+        }
     }
 
 }

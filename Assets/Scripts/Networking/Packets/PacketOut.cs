@@ -39,8 +39,6 @@ public abstract class PacketOut
             object value = field.GetValue(this);
 
             WriteNext(field.FieldType, value);
-
-            Debug.Log("Packet out field " + field.Name + " set to " + value.ToString());
         }
     }
 

@@ -1,9 +1,7 @@
-﻿using System.Text;
-using UnityEngine;
+﻿using UnityEngine;
 
 // Use plugin namespace
-using HybridWebSocket;
-using System;
+using WebSocketSharp;
 
 public class WebManager : MonoBehaviour
 {
@@ -37,8 +35,7 @@ public class WebManager : MonoBehaviour
 
         packetManager = PacketManager.Instance;
 
-        ws = WebSocketFactory.CreateInstance("ws://" + serverIP + ":" + serverPort + "//");
-
+        ws = new WebSocket("ws://" + serverIP + ":" + serverPort + "//");
         RegisterWebSocketListeners(ws);
 
         ws.Connect();
@@ -69,11 +66,9 @@ public class WebManager : MonoBehaviour
 
 
         // Add OnOpen event listener
-        ws.OnOpen += () =>
+        ws.OnOpen += (sender, e) =>
         {
             Debug.Log("WS connected!");
-            Debug.Log("WS state: " + ws.GetState().ToString());
-
 
             connected = true;
 
@@ -82,32 +77,44 @@ public class WebManager : MonoBehaviour
 
         // Add OnMessage event listener
 
-        ws.OnMessage += (byte[] bytes) =>
+        ws.OnMessage += (sender, e) =>
         {
+            if (e.IsPing)
+            {
+                //TODO Ping back
+                return;
+            }
+
+            if (e.IsText) return;
+            if (!e.IsBinary) return;
+
+            byte[] bytes = e.RawData;
             packetManager.HandlePacketIn(bytes);
         };
 
+        //ws.EmitOnPing = true;
+
         // Add OnError event listener
-        ws.OnError += (string errMsg) =>
+        ws.OnError += (sender, e) =>
         {
-            Debug.Log("WS error: " + errMsg);
+            var ex = e.Exception;
+            Debug.Log("ws error: " +  ex.StackTrace);
         };
 
         // Add OnClose event listener
-        ws.OnClose += (WebSocketCloseCode code) =>
+        ws.OnClose += (sender, e) =>
         {
-            Debug.Log("WS closed with code: " + code.ToString());
+            Debug.Log("WS closed with code: " + e.Code);
+            Debug.Log("WS closed with reason: " + e.Reason);
 
             connected = false;
-
-            //SendPacket(); Send player disconnect packet
         };
     }
 
     private void DisconnectFromServer()
     {
         if (connected) {
-            ws.Close();
+            ws.Close(CloseStatusCode.Normal);
         }
     }
 

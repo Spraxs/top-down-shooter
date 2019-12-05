@@ -16,9 +16,16 @@ public class ClientManager : MonoBehaviour
 
     private List<ClientConnectData> connectingClients = new List<ClientConnectData>();
 
+    private WebManager webManager;
+
     void Awake()
     {
         Instance = this;
+    }
+
+    void Start()
+    {
+        webManager = WebManager.Instance;
     }
 
     void Update()
@@ -39,6 +46,16 @@ public class ClientManager : MonoBehaviour
             connectingClients.Remove(client);
         }
 
+    }
+
+    public void SendClientPosition(float x, float y)
+    {
+        webManager.SendPacket(new PacketOutPlayerPositionChange(x, y));
+    }
+
+    public void MoveClient(long id, float x, float y)
+    {
+        _onlineClients[id].gameObject.transform.position = new Vector2(x, y);
     }
 
     public void CreateClient(long id, string name, float x, float y)

@@ -6,7 +6,7 @@ public class Client : MonoBehaviour
 {
     public long id;
 
-    public string accountName;
+    public string accountName = "Guest";
 
     public float health;
 
@@ -38,7 +38,7 @@ public class Client : MonoBehaviour
     IEnumerator PositionUpdateCooldown()
     {
         canUpdatePos = false;
-        yield return new WaitForSeconds(0.2f);
+        yield return new WaitForSeconds(0.05f);
         canUpdatePos = true;
     }
 }

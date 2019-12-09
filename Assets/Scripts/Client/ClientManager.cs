@@ -36,10 +36,9 @@ public class ClientManager : MonoBehaviour
         Debug.Log("ID: " + id);
 
 
-        Client client = _onlineClients[id];
+        ClientMovement clientMovement = _onlineClients[id].GetComponent<ClientMovement>();
 
-        Transform trans = client.transform;
-        trans.position = new Vector2(x, y);
+        clientMovement.HandleClientMovement(new Vector2(x, y));
     }
 
     public void CreateClient(long id, string name, float x, float y)

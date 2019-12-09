@@ -5,21 +5,25 @@ using UnityEngine;
 [PacketId(2)]
 public class PacketInPlayerConnectOwn : PacketIn
 {
-    public long playerId;
 
-    public string playerName;
-
-    public double posX;
-
-    public double posY;
-
-    public PacketInPlayerConnectOwn(MemoryStream memoryStream) : base(memoryStream)
+    public PacketInPlayerConnectOwn() : base(true)
     {
     }
 
-    public override void OnDataHandled()
+    public override void HandleData(MemoryStream ms)
     {
 
-        ClientManager.Instance.CreateOwnClient(playerId, playerName, (float)posX, (float)posY);
+        long playerId = ReadLong(ms);
+
+        string playerName = ReadString(ms);
+
+        double posX = ReadDouble(ms);
+
+        double posY = ReadDouble(ms);
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            ClientManager.Instance.CreateOwnClient(playerId, playerName, (float) posX, (float) posY);
+        });
     }
 }

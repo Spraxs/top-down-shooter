@@ -14,8 +14,6 @@ public class ClientManager : MonoBehaviour
 
     [HideInInspector] public Client currentClient;
 
-    private List<ClientConnectData> connectingClients = new List<ClientConnectData>();
-
     private WebManager webManager;
 
     void Awake()
@@ -28,26 +26,6 @@ public class ClientManager : MonoBehaviour
         webManager = WebManager.Instance;
     }
 
-    void Update()
-    {
-
-        if (connectingClients.Count > 0)
-        {
-            ClientConnectData client = connectingClients[0];
-            if (client.isOwnClient)
-            {
-                _CreateOwnClient(client.playerId, client.playerName, client.posX, client.posY);
-            }
-            else
-            {
-                _CreateClient(client.playerId, client.playerName, client.posX, client.posY);
-            }
-
-            connectingClients.Remove(client);
-        }
-
-    }
-
     public void SendClientPosition(float x, float y)
     {
         webManager.SendPacket(new PacketOutPlayerPositionChange(x, y));
@@ -55,38 +33,16 @@ public class ClientManager : MonoBehaviour
 
     public void MoveClient(long id, float x, float y)
     {
-        _onlineClients[id].gameObject.transform.position = new Vector2(x, y);
+        Debug.Log("ID: " + id);
+
+
+        Client client = _onlineClients[id];
+
+        Transform trans = client.transform;
+        trans.position = new Vector2(x, y);
     }
 
     public void CreateClient(long id, string name, float x, float y)
-    {
-        var client = new ClientConnectData
-        {
-            playerId = id,
-            playerName = name,
-            posX = x,
-            posY = y,
-            isOwnClient = false
-        };
-
-        connectingClients.Add(client);
-    }
-
-    public void CreateOwnClient(long id, string name, float x, float y)
-    {
-        var client = new ClientConnectData
-        {
-            playerId = id,
-            playerName = name,
-            posX = x,
-            posY = y,
-            isOwnClient = true
-        };
-
-        connectingClients.Add(client);
-    }
-
-    private void _CreateClient(long id, string name, float x, float y)
     {
         GameObject playerObject = Instantiate(clientPlayerPrefab);
 
@@ -105,7 +61,7 @@ public class ClientManager : MonoBehaviour
         _onlineClients.Add(client.id, client);
     }
 
-    private void _CreateOwnClient(long id, string name, float x, float y)
+    public void CreateOwnClient(long id, string name, float x, float y)
     {
         GameObject playerObject = Instantiate(clientOwnPlayerPrefab);
 

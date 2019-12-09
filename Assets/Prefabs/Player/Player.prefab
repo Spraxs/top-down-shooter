@@ -546,6 +546,7 @@ MonoBehaviour:
   accountName: 
   health: 0
   maxHealth: 0
+  isPlayableClient: 1
 --- !u!114 &4358940683665317184
 MonoBehaviour:
   m_ObjectHideFlags: 0

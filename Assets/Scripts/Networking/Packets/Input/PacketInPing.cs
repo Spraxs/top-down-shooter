@@ -7,14 +7,14 @@ using UnityEngine;
 public class PacketInPing : PacketIn
 {
 
-    public long timeInMillis;
-
-    public PacketInPing(MemoryStream memoryStream) : base(memoryStream)
+    public PacketInPing() : base(false)
     {
-
     }
-    public override void OnDataHandled()
+
+    public override void HandleData(MemoryStream ms)
     {
+        long timeInMillis = ReadLong(ms);
+
         WebManager.Instance.SendPacket(new PacketOutPing(timeInMillis));
     }
 }

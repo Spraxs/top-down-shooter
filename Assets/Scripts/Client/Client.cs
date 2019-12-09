@@ -14,6 +14,9 @@ public class Client : MonoBehaviour
 
     private bool canUpdatePos = true;
 
+
+    [SerializeField] private bool isPlayableClient = false;
+
     void Update()
     {
         UpdatePosition();
@@ -22,6 +25,7 @@ public class Client : MonoBehaviour
     void UpdatePosition()
     {
         if (!canUpdatePos) return;
+        if (!isPlayableClient) return;
 
         Vector3 pos = transform.position;
 

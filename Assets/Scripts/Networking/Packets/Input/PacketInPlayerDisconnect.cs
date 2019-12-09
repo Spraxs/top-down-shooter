@@ -3,14 +3,15 @@
 [PacketId(3)]
 public class PacketInPlayerDisconnect : PacketIn
 {
-    public long playerId;
 
-    public PacketInPlayerDisconnect(MemoryStream memoryStream) : base(memoryStream)
+    public PacketInPlayerDisconnect() : base(true)
     {
     }
 
-    public override void OnDataHandled()
+    public override void HandleData(MemoryStream ms)
     {
-        ClientManager.Instance.RemoveClient(playerId);
+        long playerId = ReadLong(ms);
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() => { ClientManager.Instance.RemoveClient(playerId); });
     }
 }

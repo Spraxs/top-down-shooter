@@ -31,6 +31,7 @@ public class WebManager : MonoBehaviour
     void Start()
     {
 
+        
         PacketManager.Init();
 
         packetManager = PacketManager.Instance;

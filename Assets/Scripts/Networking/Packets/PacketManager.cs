@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
@@ -9,17 +8,20 @@ public class PacketManager
 {
     private Assembly assembly;
 
-    private Dictionary<int, Type> packetInClasses = new Dictionary<int, Type>();
+    private Dictionary<int, PacketIn> packetInObjects = new Dictionary<int, PacketIn>();
 
     public static PacketManager Instance;
 
+    private UnityMainThreadDispatcher unityMainThreadDispatcher;
+
     public static void Init()
     {
-        Instance = new PacketManager();
+        Instance = new PacketManager(UnityMainThreadDispatcher.Instance());
     }
 
-    public PacketManager()
+    public PacketManager(UnityMainThreadDispatcher unityMainThreadDispatcher)
     {
+        this.unityMainThreadDispatcher = unityMainThreadDispatcher;
         assembly = Assembly.GetExecutingAssembly();
 
         RegisterPacketInClasses();
@@ -41,7 +43,10 @@ public class PacketManager
                     continue;
                 }
 
-                packetInClasses.Add(packetIdAttribute.Value, type);
+
+                PacketIn packetIn = (PacketIn) Activator.CreateInstance(type);
+
+                packetInObjects.Add(packetIdAttribute.Value, packetIn);
             }
         }
     }
@@ -52,21 +57,16 @@ public class PacketManager
 
         int id = ReadShort(memoryStream);
 
-        Type packetInClass = packetInClasses[id];
+        PacketIn packetIn = packetInObjects[id];
 
-        PacketIn packetIn = (PacketIn) Activator.CreateInstance(packetInClass, memoryStream);
-
-        FieldInfo[] fields = packetInClass.GetFields();
-
-        foreach (FieldInfo fieldInfo in fields)
+        if (packetIn.handleOnUnityThread)
         {
-            object value = packetIn.ReadNext(fieldInfo.FieldType);
-
-            fieldInfo.SetValue(packetIn, value);
+            unityMainThreadDispatcher.Enqueue(() => packetIn.HandleData(memoryStream));
         }
-
-        packetIn.OnDataHandled();
-
+        else
+        {
+            packetIn.HandleData(memoryStream);
+        }
     }
 
     public int ReadShort(MemoryStream memoryStream)

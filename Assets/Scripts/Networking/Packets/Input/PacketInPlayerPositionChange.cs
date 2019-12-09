@@ -3,17 +3,23 @@
 [PacketId(4)]
 public class PacketInPlayerPositionChange : PacketIn
 {
-    public long playerId;
 
-    public double posX;
-    public double posY;
-
-    public PacketInPlayerPositionChange(MemoryStream _memoryStream) : base(_memoryStream)
+    public PacketInPlayerPositionChange() : base(true)
     {
     }
 
-    public override void OnDataHandled()
+    public override void HandleData(MemoryStream ms)
     {
-        ClientManager.Instance.MoveClient(playerId, (float) posX, (float) posY);
+
+        long playerId = ReadLong(ms);
+
+        double posX = ReadDouble(ms);
+        double posY = ReadDouble(ms);
+
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            ClientManager.Instance.MoveClient(playerId, (float) posX, (float) posY);
+        });
     }
 }

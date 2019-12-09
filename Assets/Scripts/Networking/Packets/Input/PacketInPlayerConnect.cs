@@ -1,26 +1,24 @@
-﻿using System.Collections;
-using System.IO;
-
-using UnityEngine;
+﻿using System.IO;
 
 [PacketId(0)]
 public class PacketInPlayerConnect : PacketIn
 {
-    public long playerId;
 
-    public string playerName;
-
-    public double posX;
-
-    public double posY;
-
-    public PacketInPlayerConnect(MemoryStream memoryStream) : base(memoryStream)
+    public PacketInPlayerConnect() : base(true)
     {
     }
 
-    public override void OnDataHandled()
+    public override void HandleData(MemoryStream ms)
     {
-        ClientManager.Instance.CreateClient(playerId, playerName, (float)posX, (float)posY);
+        long playerId = ReadLong(ms);
+        string playerName = ReadString(ms);
 
+        double posX = ReadDouble(ms);
+        double posY = ReadDouble(ms);
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            ClientManager.Instance.CreateClient(playerId, playerName, (float)posX, (float)posY);
+        });
     }
 }

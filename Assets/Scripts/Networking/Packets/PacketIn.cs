@@ -1,69 +1,65 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using UnityEngine;
 
 public abstract class PacketIn
 {
+    public bool handleOnUnityThread;
 
-    private MemoryStream memoryStream;
-
-    public PacketIn(MemoryStream _memoryStream)
+    protected PacketIn(bool handleOnUnityThread)
     {
-        memoryStream = _memoryStream;
+        this.handleOnUnityThread = handleOnUnityThread;
     }
 
+    public abstract void HandleData(MemoryStream memoryStream);
 
-    public abstract void OnDataHandled();
-
-    public object ReadNext(Type type)
+    public object ReadNext(MemoryStream memoryStream, Type type)
     {
 
         if (type.Equals(typeof(string)))
         {
-            return ReadString();
+            return ReadString(memoryStream);
         }
 
         if (type.Equals(typeof(byte)))
         {
-            return ReadByte();
+            return ReadByte(memoryStream);
         }
 
         if (type.Equals(typeof(short)))
         {
-            return ReadShort();
+            return ReadShort(memoryStream);
         }
 
         if (type.Equals(typeof(int)))
         {
-            return ReadInt();
+            return ReadInt(memoryStream);
         }
 
         if (type.Equals(typeof(long)))
         {
-            return ReadLong();
+            return ReadLong(memoryStream);
         }
 
         if (type.Equals(typeof(float)))
         {
-            return ReadFloat();
+            return ReadFloat(memoryStream);
         }
 
         if (type.Equals(typeof(double)))
         {
-            return ReadDouble();
+            return ReadDouble(memoryStream);
         }
 
         return null;
     }
 
-
-    public string ReadString()
+    public string ReadString(MemoryStream memoryStream)
     {
-        return Encoding.UTF8.GetString(ReadBytes(memoryStream.ReadByte()));
+        return Encoding.UTF8.GetString(ReadBytes(memoryStream, memoryStream.ReadByte()));
     }
 
-    public byte[] ReadBytes(int length)
+    public byte[] ReadBytes(MemoryStream memoryStream, int length)
     {
         byte[] result = new byte[length];
         for (int i = 0; i < length; i++)
@@ -73,12 +69,12 @@ public abstract class PacketIn
         return result;
     }
 
-    public int ReadByte()
+    public int ReadByte(MemoryStream memoryStream)
     {
         return memoryStream.ReadByte();
     }
 
-    public int ReadShort()
+    public int ReadShort(MemoryStream memoryStream)
     {
         byte[] byteArray = new byte[2];
         byteArray[0] = (byte)memoryStream.ReadByte();
@@ -86,7 +82,7 @@ public abstract class PacketIn
         return BitConverter.ToInt16(byteArray, 0);
     }
 
-    public int ReadInt()
+    public int ReadInt(MemoryStream memoryStream)
     {
         byte[] byteArray = new byte[4];
         byteArray[0] = (byte)memoryStream.ReadByte();
@@ -96,7 +92,7 @@ public abstract class PacketIn
         return BitConverter.ToInt32(byteArray, 0);
     }
 
-    public long ReadLong()
+    public long ReadLong(MemoryStream memoryStream)
     {
         byte[] byteArray = new byte[8];
         byteArray[0] = (byte)memoryStream.ReadByte();
@@ -110,7 +106,7 @@ public abstract class PacketIn
         return BitConverter.ToInt64(byteArray, 0);
     }
 
-    public float ReadFloat()
+    public float ReadFloat(MemoryStream memoryStream)
     {
         byte[] byteArray = new byte[4];
         byteArray[0] = (byte)memoryStream.ReadByte();
@@ -120,7 +116,7 @@ public abstract class PacketIn
         return BitConverter.ToSingle(byteArray, 0);
     }
 
-    public double ReadDouble()
+    public double ReadDouble(MemoryStream memoryStream)
     {
         byte[] byteArray = new byte[8];
         byteArray[0] = (byte)memoryStream.ReadByte();

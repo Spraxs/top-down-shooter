@@ -42,7 +42,6 @@ public class BlockManager : MonoBehaviour
     {
         if (IsBlockPlacedOnPosition(position))
         {
-            Debug.Log("Double block");
             return;
         }
 

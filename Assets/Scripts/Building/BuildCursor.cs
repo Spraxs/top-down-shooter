@@ -6,11 +6,14 @@ public class BuildCursor : MonoBehaviour
 {
     private Grid grid;
     private GameObject cursorGameObject;
+    private SpriteRenderer spriteRenderer;
 
-    void Start()
+    void Awake()
     {
         grid = FindObjectOfType<Grid>();
         cursorGameObject = GameObject.FindGameObjectWithTag("Build Cursor");
+
+        spriteRenderer = cursorGameObject.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -34,12 +37,15 @@ public class BuildCursor : MonoBehaviour
     void OnDisable()
     {
         if (cursorGameObject == null) return;
+        spriteRenderer.enabled = false;
         cursorGameObject.SetActive(false);
+
     }
 
     void OnEnable()
     {
         if (cursorGameObject == null) return;
+        spriteRenderer.enabled = true;
         cursorGameObject.SetActive(true);
     }
 }

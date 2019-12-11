@@ -96,9 +96,11 @@ public class Gun : MonoBehaviour
         lineRenderer.SetPosition(1, raycastHit.point);
         HitCollider(raycastHit);
 
+        WebManager.Instance.SendPacket(new PacketOutPlayerShootRay(beginPos, direction));
+
         lineRenderer.enabled = true;
 
-        yield return 0;
+        yield return new WaitForSeconds(0.05f);
 
         lineRenderer.enabled = false;
     }

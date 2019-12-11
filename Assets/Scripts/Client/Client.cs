@@ -43,14 +43,24 @@ public class Client : MonoBehaviour
         canUpdatePos = true;
     }
 
-    public void PlayShootEffect(Vector2 beginPos, Vector2 hitPos)
+    public void PlayShootEffect(Vector2 beginPos, Vector2 hitPos, bool isHit)
     {
         if (isPlayableClient) return;
 
         bulletLine.SetPosition(0, beginPos);
         bulletLine.SetPosition(1, hitPos);
 
+        if (isHit)
+        {
+            HitCollider(hitPos);
+        }
+
         StartCoroutine(ViewBullet());
+    }
+
+    private void HitCollider(Vector2 position)
+    {
+        EffectManager.Instance.Play(EffectManager.EffectType.EXPLOSION, position);
     }
 
     IEnumerator ViewBullet()

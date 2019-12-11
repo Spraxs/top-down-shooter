@@ -14,14 +14,14 @@ public class PacketInPlayerDamageOwn : PacketIn
         float damage = (float) ReadDouble(ms);
         float playerHealth = (float) ReadDouble(ms);
 
-        float damagePositionX = (float) ReadDouble(ms);
-        float damagePositionY = (float) ReadDouble(ms);
+        float damageDirectionX = (float) ReadDouble(ms);
+        float damageDirectionY = (float) ReadDouble(ms);
 
-        Vector2 damagePosition = new Vector2(damagePositionX, damagePositionY);
+        Vector2 damageDirection = new Vector2(damageDirectionX, damageDirectionY);
 
         UnityMainThreadDispatcher.Instance().Enqueue(() =>
         {
-            ClientManager.Instance.DamageOwnPlayer(damage, playerHealth, damagePosition);
+            ClientManager.Instance.DamageOwnPlayer(damage, playerHealth, damageDirection);
         });
     }
 }

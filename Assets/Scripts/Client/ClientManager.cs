@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -80,6 +81,33 @@ public class ClientManager : MonoBehaviour
 
         currentClient = client;
     }
+
+    public void DamageOwnPlayer(float damage, float playerHealth, Vector2 damageDirection)
+    {
+        currentClient.health = playerHealth < 0 ? 0 : playerHealth;
+
+        damageDirection *= 20;
+
+        currentClient.GetComponent<Rigidbody2D>().AddForce(damageDirection, ForceMode2D.Impulse);
+
+        
+    }
+
+    public void PlayShootRayEffect(long playerId, Vector2 beginPosition, Vector2 endPosition, bool isHit)
+    {
+        Client client = GetPlayer(playerId);
+
+        Debug.Log("Begin: " + beginPosition.x + " : " + beginPosition.y);
+        Debug.Log("End: " + endPosition.x + " : " + endPosition.y);
+
+        if (client ==  null) return;
+
+        beginPosition = client.transform.position;
+
+        client.PlayShootEffect(beginPosition, endPosition, isHit);
+
+    }
+
 
     public GameObject GetGameObjectById(long id)
     {

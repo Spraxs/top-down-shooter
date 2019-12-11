@@ -93,19 +93,37 @@ public class Gun : MonoBehaviour
         corsair.EffectCorsair(accuracyShotDecrease);
 
         lineRenderer.SetPosition(0, beginPos);
-        lineRenderer.SetPosition(1, raycastHit.point);
-        HitCollider(raycastHit);
+
+        Vector2 endPosition;
+
+        bool isHit = raycastHit.collider != null;
+
+        if (!isHit)
+        {
+            endPosition = beginPos + direction * range;
+        }
+        else
+        {
+            endPosition = raycastHit.point;
+
+            HitCollider(endPosition);
+        }
+
+
+        lineRenderer.SetPosition(1, endPosition);
+
+        WebManager.Instance.SendPacket(new PacketOutPlayerShootRay(beginPos, direction, endPosition, isHit));
 
         lineRenderer.enabled = true;
 
-        yield return 0;
+        yield return new WaitForSeconds(0.05f);
 
         lineRenderer.enabled = false;
     }
 
-    private void HitCollider(RaycastHit2D raycastHit)
+    private void HitCollider(Vector2 position)
     {
-        EffectManager.Instance.Play(EffectManager.EffectType.EXPLOSION, raycastHit.point);
+        EffectManager.Instance.Play(EffectManager.EffectType.EXPLOSION, position);
     }
 
     private IEnumerator FireCooldown()

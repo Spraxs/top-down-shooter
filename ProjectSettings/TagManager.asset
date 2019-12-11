@@ -39,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 2452850265
+    locked: 0
   - name: Effects
     uniqueID: 4102215643
     locked: 0

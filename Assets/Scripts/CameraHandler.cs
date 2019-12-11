@@ -13,7 +13,7 @@ public class CameraHandler : MonoBehaviour
     private IEnumerator FindPlayer()
     {
         wait = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(1f);
 
         wait = false;
 

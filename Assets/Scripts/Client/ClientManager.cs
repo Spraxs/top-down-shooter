@@ -81,6 +81,27 @@ public class ClientManager : MonoBehaviour
         currentClient = client;
     }
 
+    public void DamageOwnPlayer(float damage, float playerHealth, Vector2 damagePosition)
+    {
+        currentClient.health = playerHealth < 0 ? 0 : playerHealth;
+
+        /* Knock back
+
+        Vector2 clientPosition = currentClient.transform.position;
+
+        clientPosition.Normalize();
+        damagePosition.Normalize();
+
+        Vector2 force = clientPosition - damagePosition;
+
+        force *= 25;
+
+        currentClient.GetComponent<Rigidbody2D>().AddForce(force, ForceMode2D.Impulse);
+
+        */
+    }
+
+
     public GameObject GetGameObjectById(long id)
     {
         return GameObject.Find(id + "_player");

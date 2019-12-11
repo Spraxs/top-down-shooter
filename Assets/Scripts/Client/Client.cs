@@ -14,8 +14,9 @@ public class Client : MonoBehaviour
 
     private bool canUpdatePos = true;
 
-
     [SerializeField] private bool isPlayableClient = false;
+
+    [Header("Bullet")] [SerializeField] private LineRenderer bulletLine;
 
     void Update()
     {
@@ -40,5 +41,24 @@ public class Client : MonoBehaviour
         canUpdatePos = false;
         yield return new WaitForSeconds(0.05f);
         canUpdatePos = true;
+    }
+
+    public void PlayShootEffect(Vector2 beginPos, Vector2 hitPos)
+    {
+        if (isPlayableClient) return;
+
+        bulletLine.SetPosition(0, beginPos);
+        bulletLine.SetPosition(1, hitPos);
+
+        StartCoroutine(ViewBullet());
+    }
+
+    IEnumerator ViewBullet()
+    {
+        bulletLine.enabled = true;
+
+        yield return new WaitForSeconds(0.05f);
+
+        bulletLine.enabled = false;
     }
 }

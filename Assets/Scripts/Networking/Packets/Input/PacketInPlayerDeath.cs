@@ -16,5 +16,10 @@ public class PacketInPlayerDeath : PacketIn
         float deathPositionY = (float)ReadDouble(ms);
 
         Vector2 deathPosition = new Vector2(deathPositionX, deathPositionY);
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            ClientManager.Instance.HandleClientDeath(playerId, deathPosition);
+        });
     }
 }

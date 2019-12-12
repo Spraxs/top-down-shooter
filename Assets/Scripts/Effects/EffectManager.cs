@@ -36,6 +36,6 @@ public class EffectManager : MonoBehaviour
 
     public enum EffectType
     {
-        EXPLOSION
+        EXPLOSION, DEATH
     }
 }

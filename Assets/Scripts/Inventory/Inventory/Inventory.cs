@@ -20,7 +20,10 @@ public class Inventory : MonoBehaviour
     {
         Clear();
 
-        StartCoroutine(SetDefaultItem());
+        if (defaultItem != null)
+        {
+            StartCoroutine(SetDefaultItem());
+        }
     }
 
     private IEnumerator SetDefaultItem()

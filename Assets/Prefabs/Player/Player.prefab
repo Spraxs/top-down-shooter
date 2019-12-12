@@ -378,7 +378,7 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0.7}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 4358940683751180694}
+  m_Father: {fileID: 272675025621667766}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!108 &1268775047008881463
@@ -710,8 +710,8 @@ Transform:
   m_LocalPosition: {x: 0.359, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 4358940685028290911}
-  - {fileID: 5061322999478034066}
+  - {fileID: 272675025621667765}
+  - {fileID: 8620963817588727596}
   m_Father: {fileID: 4358940683665317185}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -817,6 +817,11 @@ PrefabInstance:
       propertyPath: range
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 4591047123802734234, guid: 91d729fd4c628dc45bea7c225bbe4fc4,
+        type: 3}
+      propertyPath: client
+      value: 
+      objectReference: {fileID: 448937232478992518}
     - target: {fileID: 4591047123020023381, guid: 91d729fd4c628dc45bea7c225bbe4fc4,
         type: 3}
       propertyPath: m_LocalScale.x
@@ -844,13 +849,13 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d729fd4c628dc45bea7c225bbe4fc4, type: 3}
---- !u!4 &4358940683751180694 stripped
+--- !u!4 &272675025621667766 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4591047123020023381, guid: 91d729fd4c628dc45bea7c225bbe4fc4,
     type: 3}
   m_PrefabInstance: {fileID: 272675025621667779}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &4358940685028290911 stripped
+--- !u!4 &272675025621667765 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4591047123802734236, guid: 91d729fd4c628dc45bea7c225bbe4fc4,
     type: 3}
@@ -935,7 +940,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: a82bdcce46a0eea479bb03593c75302c, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7c48182ed15e370438e0ad3630bde8e3, type: 3}
---- !u!4 &5061322999478034066 stripped
+--- !u!4 &8620963817588727596 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3575504719150842329, guid: 7c48182ed15e370438e0ad3630bde8e3,
     type: 3}

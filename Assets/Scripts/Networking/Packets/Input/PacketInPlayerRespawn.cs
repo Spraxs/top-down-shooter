@@ -14,9 +14,16 @@ public class PacketInPlayerRespawn : PacketIn
     {
         long playerId = ReadLong(ms);
 
-        float respawnPositionX = (float) ReadDouble(ms);
-        float respawnPositionY = (float) ReadDouble(ms);
+        float reSpawnPositionX = (float) ReadDouble(ms);
+        float reSpawnPositionY = (float) ReadDouble(ms);
 
-        Vector2 respawnPosition = new Vector2(respawnPositionX, respawnPositionY);
+        Vector2 reSpawnPosition = new Vector2(reSpawnPositionX, reSpawnPositionY);
+
+        Debug.Log("Test respawn.");
+
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            ClientManager.Instance.HandleClientReSpawn(playerId, reSpawnPosition);
+        });
     }
 }

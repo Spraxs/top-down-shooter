@@ -34,9 +34,6 @@ public class ClientManager : MonoBehaviour
 
     public void MoveClient(long id, float x, float y)
     {
-        Debug.Log("ID: " + id);
-
-
         ClientMovement clientMovement = _onlineClients[id].GetComponent<ClientMovement>();
 
         clientMovement.HandleClientMovement(new Vector2(x, y));
@@ -97,15 +94,35 @@ public class ClientManager : MonoBehaviour
     {
         Client client = GetPlayer(playerId);
 
-        Debug.Log("Begin: " + beginPosition.x + " : " + beginPosition.y);
-        Debug.Log("End: " + endPosition.x + " : " + endPosition.y);
-
         if (client ==  null) return;
 
         beginPosition = client.transform.position;
 
         client.PlayShootEffect(beginPosition, endPosition, isHit);
 
+    }
+
+    public void HandleClientDeath(long playerId, Vector2 deathPosition)
+    {
+        Client client = GetPlayer(playerId);
+
+        client.gameObject.transform.position = deathPosition;
+
+        EffectManager.Instance.Play(EffectManager.EffectType.DEATH, deathPosition);
+
+        client.gameObject.SetActive(false);
+    }
+
+    public void HandleClientReSpawn(long playerId, Vector2 reSpawnPosition)
+    {
+        Client client = GetPlayer(playerId);
+
+        client.health = client.maxHealth;
+        client.gameObject.transform.position = reSpawnPosition;
+
+        EffectManager.Instance.Play(EffectManager.EffectType.DEATH, reSpawnPosition);
+
+        client.gameObject.SetActive(true);
     }
 
 

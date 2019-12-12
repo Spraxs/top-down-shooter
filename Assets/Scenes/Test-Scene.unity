@@ -941,7 +941,7 @@ MonoBehaviour:
   - {fileID: 6462183323335602659}
   - {fileID: 6462183323563506055}
   emptySlotSprite: {fileID: 21300000, guid: 6f4dc3fc90f4f3248a40577c449e437e, type: 3}
-  defaultItem: {fileID: 11400000, guid: 50b701234fc2fc24abe0b591a82b26bd, type: 2}
+  defaultItem: {fileID: 0}
 --- !u!1 &352026982
 GameObject:
   m_ObjectHideFlags: 0
@@ -1305,8 +1305,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25159f92433e6dd419466ac8be8fc0e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serverIP: 127.0.0.1
-  serverPort: 8080
+  serverIP: 31.151.54.213
+  serverPort: 25565
 --- !u!1 &479332095
 GameObject:
   m_ObjectHideFlags: 0
@@ -5293,6 +5293,9 @@ MonoBehaviour:
   - _prefab: {fileID: 5138676885572503262, guid: abe7418933417f14ba74e553250aff58,
       type: 3}
     _count: 30
+  - _prefab: {fileID: 5138676885572503262, guid: 8a98ec3efaecebc4cbfe3e6b9b9866a1,
+      type: 3}
+    _count: 5
 --- !u!4 &1953474998
 Transform:
   m_ObjectHideFlags: 0
@@ -5560,6 +5563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectObjects:
   - {fileID: 11400000, guid: bec5b8cf29c226748a98eb11361543ee, type: 2}
+  - {fileID: 11400000, guid: 28bfc63850e08c7418875de3d7efadfc, type: 2}
 --- !u!4 &2124642436
 Transform:
   m_ObjectHideFlags: 0

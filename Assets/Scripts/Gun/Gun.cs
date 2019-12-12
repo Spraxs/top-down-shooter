@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Microsoft.Win32.SafeHandles;
 using UnityEngine;
 
 public class Gun : MonoBehaviour
@@ -22,6 +23,8 @@ public class Gun : MonoBehaviour
     [SerializeField] protected AudioClip gunShotClip;
 
     [SerializeField] protected Corsair corsair;
+
+    [SerializeField] protected Client client;
 
     protected AudioSource audioSource;
 
@@ -60,7 +63,7 @@ public class Gun : MonoBehaviour
         StopAllCoroutines();
         waitForShot = false;
         muzzleGameObject.SetActive(false);
-
+        lineRenderer.enabled = false; // Probably fixed bug [1.1]
     }
 
     private void SpawnBullet()
@@ -143,6 +146,14 @@ public class Gun : MonoBehaviour
     public void HandleTrigger(InputManager.InputType inputType, float value)
     {
         if (!gameObject.activeSelf) return;
+
+        if (client == null)
+        {
+            Debug.LogWarning("Client has not been set! Check the inspector.");
+            return;
+        }
+
+        if (!client.isActiveAndEnabled) return;
 
         if (inputType == InputManager.InputType.FIRE)
         {

@@ -18,6 +18,21 @@ public class Client : MonoBehaviour
 
     [Header("Bullet")] [SerializeField] private LineRenderer bulletLine;
 
+    void OnEnable()
+    {
+        canUpdatePos = true;
+    }
+
+    void OnDisable()
+    {
+        canUpdatePos = false;
+
+        if (!isPlayableClient) // Probably fixed bug [1.1]
+        {
+            bulletLine.enabled = false;
+        }
+    }
+
     void Update()
     {
         UpdatePosition();
@@ -46,6 +61,7 @@ public class Client : MonoBehaviour
     public void PlayShootEffect(Vector2 beginPos, Vector2 hitPos, bool isHit)
     {
         if (isPlayableClient) return;
+        if (!isActiveAndEnabled) return;
 
         bulletLine.SetPosition(0, beginPos);
         bulletLine.SetPosition(1, hitPos);

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Use plugin namespace
 using WebSocketSharp;
@@ -30,7 +31,8 @@ public class WebManager : MonoBehaviour
 
     void Start()
     {
-
+        serverIP = PlayerPrefs.GetString("ip", "localhost");
+        serverPort = PlayerPrefs.GetInt("port", 25565);
         
         PacketManager.Init();
 
@@ -105,6 +107,10 @@ public class WebManager : MonoBehaviour
         // Add OnClose event listener
         ws.OnClose += (sender, e) =>
         {
+            if (e.Code == (int) CloseStatusCode.Abnormal)
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
             Debug.Log("WS closed with code: " + e.Code);
             Debug.Log("WS closed with reason: " + e.Reason);
 
@@ -115,7 +121,7 @@ public class WebManager : MonoBehaviour
     private void DisconnectFromServer()
     {
         if (connected) {
-            ws.Close(CloseStatusCode.Normal);
+            ws.Close(CloseStatusCode.Normal, "disconnect");
         }
     }
 

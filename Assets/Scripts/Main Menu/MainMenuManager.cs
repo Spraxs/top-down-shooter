@@ -15,15 +15,11 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject singlePlayerPanel;
 
-    [SerializeField]
-    private GameObject multiPlayerDebugPanel;
-
     void Start()
     {
         mainPanel.SetActive(true);
         multiPlayerPanel.SetActive(false);
         singlePlayerPanel.SetActive(false);
-        multiPlayerDebugPanel.SetActive(false);
     }
 
     public void ShowMainPanel()
@@ -41,17 +37,8 @@ public class MainMenuManager : MonoBehaviour
         ShowPanel(MenuPanel.MULTI_PLAYER);
     }
 
-    public void ShowDebugPanel()
-    {
-        ShowPanel(MenuPanel.MULTI_PLAYER_DEBUG);
-    }
-
     public void ShowPanel(MenuPanel menuPanel)
     {
-        if (menuPanel == MenuPanel.MULTI_PLAYER_DEBUG && !Debug.isDebugBuild)
-        {
-            return;
-        }
 
         switch (menuPanel)
         {
@@ -59,7 +46,6 @@ public class MainMenuManager : MonoBehaviour
 
                 multiPlayerPanel.SetActive(false);
                 singlePlayerPanel.SetActive(false);
-                multiPlayerDebugPanel.SetActive(false);
 
                 mainPanel.SetActive(true);
 
@@ -69,7 +55,6 @@ public class MainMenuManager : MonoBehaviour
 
                 singlePlayerPanel.SetActive(false);
                 mainPanel.SetActive(false);
-                multiPlayerDebugPanel.SetActive(false);
 
                 multiPlayerPanel.SetActive(true);
 
@@ -79,19 +64,8 @@ public class MainMenuManager : MonoBehaviour
 
                 multiPlayerPanel.SetActive(false);
                 mainPanel.SetActive(false);
-                multiPlayerDebugPanel.SetActive(false);
 
                 singlePlayerPanel.SetActive(true);
-
-                break;
-
-            case MenuPanel.MULTI_PLAYER_DEBUG:
-
-                multiPlayerPanel.SetActive(false);
-                mainPanel.SetActive(false);
-                singlePlayerPanel.SetActive(false);
-
-                multiPlayerDebugPanel.SetActive(true);
 
                 break;
         }
@@ -99,6 +73,6 @@ public class MainMenuManager : MonoBehaviour
 
     public enum MenuPanel
     {
-        MAIN, MULTI_PLAYER, SINGLE_PLAYER, MULTI_PLAYER_DEBUG
+        MAIN, MULTI_PLAYER, SINGLE_PLAYER
     }
 }

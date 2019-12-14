@@ -86,8 +86,6 @@ public class ClientManager : MonoBehaviour
         damageDirection *= 20;
 
         currentClient.GetComponent<Rigidbody2D>().AddForce(damageDirection, ForceMode2D.Impulse);
-
-        
     }
 
     public void PlayShootRayEffect(long playerId, Vector2 beginPosition, Vector2 endPosition, bool isHit)

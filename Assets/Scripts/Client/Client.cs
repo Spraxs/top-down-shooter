@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+
 
 public class Client : MonoBehaviour
 {
@@ -14,9 +16,38 @@ public class Client : MonoBehaviour
 
     private bool canUpdatePos = true;
 
+    private Team team = Team.DEFAULT;
+
+    public Team Team {
+
+        set
+        {
+            team = value;
+
+            if (team == Team.RED)
+            {
+                nameText.color = Color.red;
+            } else if (team == Team.BLUE)
+            {
+                nameText.color = Color.blue;
+            } else
+            {
+                nameText.color = Color.white;
+            }
+
+        }
+
+        get
+        {
+            return team;
+        }
+    }
+
     [SerializeField] private bool isPlayableClient = false;
 
     [Header("Bullet")] [SerializeField] private LineRenderer bulletLine;
+
+    [Header("Name")] [SerializeField] private TMP_Text nameText;
 
     void OnEnable()
     {

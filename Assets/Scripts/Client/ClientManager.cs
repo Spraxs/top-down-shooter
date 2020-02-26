@@ -154,4 +154,15 @@ public class ClientManager : MonoBehaviour
         // Destroy client
         Destroy(client.gameObject);
     }
+
+    public void UpdateClientTeam(long objectId, int teamId)
+    {
+        Client client;
+
+        if (!_onlineClients.TryGetValue(objectId, out client)) return;
+
+        Team team = (Team) teamId;
+
+        client.Team = team;
+    }
 }

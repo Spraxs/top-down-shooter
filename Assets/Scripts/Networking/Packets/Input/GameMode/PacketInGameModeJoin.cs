@@ -18,7 +18,7 @@ public class PacketInGameModeJoin : PacketIn
         {
             GameModeManager gameModeManager = GameModeManager.Instance();
 
-            gameModeManager.SetGameInfo(gameEndTime, redScore, blueScore);
+            gameModeManager.SetGameTimer(gameEndTime);
             gameModeManager.UpdateScore(redScore, blueScore);
             gameModeManager.UpdateState(stateId);
 

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using UnityEngine;
 
 [PacketId(12)]
 public class PacketInGameModeWin : PacketIn
@@ -10,6 +9,9 @@ public class PacketInGameModeWin : PacketIn
 
     public override void HandleData(MemoryStream ms)
     {
-        
+        UnityMainThreadDispatcher.Instance().Enqueue(() =>
+        {
+            GameModeManager.Instance().HandleWin();
+        });
     }
 }

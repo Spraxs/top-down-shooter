@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
-using TMPro;
 
 public class GameModeManager : MonoBehaviour
 {
     private static GameModeManager instance;
 
     [SerializeField] private GameStats gameStats;
+    [SerializeField] private GameStateUI gameStateUi;
 
     private long gameEndTimeMillis = -1;
     private long currentTimeMillis = -2;
@@ -22,7 +21,7 @@ public class GameModeManager : MonoBehaviour
         instance = this;
     }
 
-    public void SetGameInfo(long gameEndTime, int redScore, int blueScore)
+    public void SetGameTimer(long gameEndTime)
     {
         gameEndTimeMillis = gameEndTime;
 
@@ -50,9 +49,17 @@ public class GameModeManager : MonoBehaviour
     public void UpdateState(int stateId)
     {
         GameState gameState = (GameState) stateId;
+        gameStateUi.UpdateGameState(gameState);
+    }
 
+    public void HandleWin()
+    {
+        gameStateUi.UpdateWin();
+    }
 
-
+    public void HandleLose()
+    {
+        gameStateUi.UpdateLose();
     }
 
     public enum GameState

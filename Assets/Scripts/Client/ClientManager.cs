@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ClientManager : MonoBehaviour
 {
@@ -144,6 +145,7 @@ public class ClientManager : MonoBehaviour
         if (playerId == currentClient.id)
         {
             currentClient = null;
+            SceneManager.LoadScene(1);
         }
 
         Client client = _onlineClients[playerId];

@@ -1110,6 +1110,12 @@ PrefabInstance:
       propertyPath: m_Type
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 4591047123802734235, guid: 91d729fd4c628dc45bea7c225bbe4fc4,
+        type: 3}
+      propertyPath: OutputAudioMixerGroup
+      value: 
+      objectReference: {fileID: -2966520087534935764, guid: d986b7baced31d849a6a4737c7cb97a0,
+        type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d729fd4c628dc45bea7c225bbe4fc4, type: 3}
 --- !u!4 &4358940683751180694 stripped
@@ -1131,16 +1137,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 4358940684853704238}
     m_Modifications:
-    - target: {fileID: 1876342038424150942, guid: 7c48182ed15e370438e0ad3630bde8e3,
-        type: 3}
-      propertyPath: m_Name
-      value: Hammer
-      objectReference: {fileID: 0}
-    - target: {fileID: 1876342038424150942, guid: 7c48182ed15e370438e0ad3630bde8e3,
-        type: 3}
-      propertyPath: m_Layer
-      value: 8
-      objectReference: {fileID: 0}
     - target: {fileID: 3575504719150842329, guid: 7c48182ed15e370438e0ad3630bde8e3,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1195,6 +1191,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876342038424150942, guid: 7c48182ed15e370438e0ad3630bde8e3,
+        type: 3}
+      propertyPath: m_Name
+      value: Hammer
+      objectReference: {fileID: 0}
+    - target: {fileID: 1876342038424150942, guid: 7c48182ed15e370438e0ad3630bde8e3,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 8043971480413018248, guid: 7c48182ed15e370438e0ad3630bde8e3,
         type: 3}

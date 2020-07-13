@@ -45,6 +45,8 @@ public class GameStats : MonoBehaviour
     {
         long time = gameEndTimeMillis - DateTimeOffset.UtcNow.ToUnixTimeMilliseconds();
 
+        if (time < 0) time = 0;
+
         TimeSpan t = TimeSpan.FromMilliseconds(time);
 
         string answer = string.Format("{0:D2}:{1:D2}",

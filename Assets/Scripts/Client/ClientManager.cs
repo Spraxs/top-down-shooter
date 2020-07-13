@@ -32,12 +32,24 @@ public class ClientManager : MonoBehaviour
     {
         webManager.SendPacket(new PacketOutPlayerPositionChange(x, y));
     }
+    
+    public void SendClientHandTransform(float posX, float posY, float rotZ, float scaleX)
+    {
+        webManager.SendPacket(new PacketOutPlayerHandTransformChange(posX, posY, rotZ, scaleX));
+    }
 
     public void MoveClient(long id, float x, float y)
     {
         ClientMovement clientMovement = _onlineClients[id].GetComponent<ClientMovement>();
 
         clientMovement.HandleClientMovement(new Vector2(x, y));
+    }
+    
+    public void MoveClientHand(long id, float posX, float posY, float rotZ, float scaleX)
+    {
+        ClientMovement clientMovement = _onlineClients[id].GetComponent<ClientMovement>();
+
+        clientMovement.HandleHandMovement(new Vector2(posX, posY), rotZ, scaleX);
     }
 
     public void CreateClient(long id, string name, float x, float y)

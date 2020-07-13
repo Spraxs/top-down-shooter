@@ -5,6 +5,8 @@ using UnityEngine;
 public class HandMovement : MonoBehaviour
 {
 
+    [SerializeField] private Client client;
+    
     [SerializeField] private float offset;
 
     [SerializeField] private Transform leftHandHolder;
@@ -53,5 +55,10 @@ public class HandMovement : MonoBehaviour
         float angle = Mathf.Atan2(lookPos.y, lookPos.x) * Mathf.Rad2Deg;
         angle += offset;
         transform.rotation = Quaternion.AngleAxis(angle, Vector3.forward);
+
+        client.handPositionX = transform.position.x;
+        client.handPositionY = transform.position.y;
+        client.handRotationZ = transform.rotation.eulerAngles.z;
+        client.handScaleX = transform.localScale.x;
     }
 }

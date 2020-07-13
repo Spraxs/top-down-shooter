@@ -10,7 +10,7 @@ public class GameModeManager : MonoBehaviour
 
     private long gameEndTimeMillis = -1;
     private long currentTimeMillis = -2;
-
+    
     public static GameModeManager Instance()
     {
         return instance;
@@ -48,7 +48,7 @@ public class GameModeManager : MonoBehaviour
 
     public void UpdateState(int stateId)
     {
-        GameState gameState = (GameState) stateId;
+        var gameState = (GameState) stateId;
         gameStateUi.UpdateGameState(gameState);
     }
 

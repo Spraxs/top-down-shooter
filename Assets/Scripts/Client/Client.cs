@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -17,6 +16,12 @@ public class Client : MonoBehaviour
     private bool canUpdatePos = true;
 
     private Team team = Team.DEFAULT;
+
+    public float handPositionX;
+    public float handPositionY;
+    
+    public float handRotationZ;
+    public float handScaleX;
 
     public Team Team {
 
@@ -78,8 +83,11 @@ public class Client : MonoBehaviour
 
         ClientManager.Instance.SendClientPosition(pos.x, pos.y);
 
-        StartCoroutine(PositionUpdateCooldown());
 
+        ClientManager.Instance.SendClientHandTransform(handPositionX, handPositionY,
+            handRotationZ, handScaleX);
+
+            StartCoroutine(PositionUpdateCooldown());
     }
 
     IEnumerator PositionUpdateCooldown()

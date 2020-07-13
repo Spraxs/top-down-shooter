@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-public class PacketOutPlayerPositionChange : PacketOut
+﻿public class PacketOutPlayerPositionChange : PacketOut
 {
 
     public double posX;

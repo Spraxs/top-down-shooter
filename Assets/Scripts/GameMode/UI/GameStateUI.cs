@@ -12,10 +12,6 @@ public class GameStateUI : MonoBehaviour
 
     private Image image;
 
-
-    private int lastRedScore = -1;
-    private int lastBlueScore = -1;
-
     // Start is called before the first frame update
     void Start()
     {

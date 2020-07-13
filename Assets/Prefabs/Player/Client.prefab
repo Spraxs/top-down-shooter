@@ -268,6 +268,7 @@ MonoBehaviour:
   accountName: Guest
   health: 0
   maxHealth: 0
+  handTransform: {fileID: 4358940684853704238}
   isPlayableClient: 0
   bulletLine: {fileID: 1664814217}
   nameText: {fileID: 5832363360150588412}
@@ -283,6 +284,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eeb503082809874793b59530bbb92d9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handTransform: {fileID: 4358940684853704238}
 --- !u!1 &4358940684418989922
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,5 +1,4 @@
 ﻿using System.IO;
-using UnityEngine;
 
 [PacketId(14)]
 public class PacketInGameModeJoin : PacketIn

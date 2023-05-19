@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class MainMenuManager : MonoBehaviour
 {
@@ -12,24 +10,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     private GameObject multiPlayerPanel;
 
-    [SerializeField]
-    private GameObject singlePlayerPanel;
-
     void Start()
     {
         mainPanel.SetActive(true);
         multiPlayerPanel.SetActive(false);
-        singlePlayerPanel.SetActive(false);
     }
 
     public void ShowMainPanel()
     {
         ShowPanel(MenuPanel.MAIN);
-    }
-
-    public void ShowSinglePlayerPanel()
-    {
-        ShowPanel(MenuPanel.SINGLE_PLAYER);
     }
 
     public void ShowMultiPlayerPanel()
@@ -45,27 +34,15 @@ public class MainMenuManager : MonoBehaviour
             case MenuPanel.MAIN:
 
                 multiPlayerPanel.SetActive(false);
-                singlePlayerPanel.SetActive(false);
 
                 mainPanel.SetActive(true);
 
                 break;
 
             case MenuPanel.MULTI_PLAYER:
-
-                singlePlayerPanel.SetActive(false);
                 mainPanel.SetActive(false);
 
                 multiPlayerPanel.SetActive(true);
-
-                break;
-
-            case MenuPanel.SINGLE_PLAYER:
-
-                multiPlayerPanel.SetActive(false);
-                mainPanel.SetActive(false);
-
-                singlePlayerPanel.SetActive(true);
 
                 break;
         }
@@ -73,6 +50,6 @@ public class MainMenuManager : MonoBehaviour
 
     public enum MenuPanel
     {
-        MAIN, MULTI_PLAYER, SINGLE_PLAYER
+        MAIN, MULTI_PLAYER
     }
 }

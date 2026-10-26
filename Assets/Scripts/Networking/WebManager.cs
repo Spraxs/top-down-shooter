@@ -1,19 +1,15 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Use plugin namespace
-using WebSocketSharp;
+// One WebSocket API for both builds: the browser's own WebSocket under WebGL, WebSocketSharp elsewhere
+using HybridWebSocket;
 
 public class WebManager : MonoBehaviour
 {
     // Web manager instance.
     public static WebManager Instance;
 
-    // Connection settings.
-
-    string serverIP = "51.68.175.9";
-    int serverPort = 8080;
-    int connectionTimeOut = 5000;
+    private const string MainMenuScene = "Main Menu";
 
     private bool connected = false;
 
@@ -30,14 +26,13 @@ public class WebManager : MonoBehaviour
 
     void Start()
     {
-        serverIP = PlayerPrefs.GetString("ip", "localhost");
-        serverPort = PlayerPrefs.GetInt("port", 25565);
-        
+        string url = ServerAddress.ToUrl(PlayerPrefs.GetString(ServerAddress.PreferenceKey, ServerAddress.DefaultInput));
+
         PacketManager.Init();
 
         packetManager = PacketManager.Instance;
 
-        ws = new WebSocket("ws://" + serverIP + ":" + serverPort + "//");
+        ws = WebSocketFactory.CreateInstance(url);
         RegisterWebSocketListeners(ws);
 
         ws.Connect();
@@ -65,10 +60,8 @@ public class WebManager : MonoBehaviour
 
     private void RegisterWebSocketListeners(WebSocket ws)
     {
-
-
         // Add OnOpen event listener
-        ws.OnOpen += (sender, e) =>
+        ws.OnOpen += () =>
         {
             Debug.Log("WS connected!");
 
@@ -77,41 +70,26 @@ public class WebManager : MonoBehaviour
             SendPacket(new PacketOutPlayerConnect());
         };
 
-        // Add OnMessage event listener
-
-        ws.OnMessage += (sender, e) =>
+        // Add OnMessage event listener: the server only sends binary packets
+        ws.OnMessage += (bytes) =>
         {
-            if (e.IsPing)
-            {
-                //TODO Ping back
-                return;
-            }
-
-            if (e.IsText) return;
-            if (!e.IsBinary) return;
-
-            byte[] bytes = e.RawData;
             packetManager.HandlePacketIn(bytes);
         };
 
-        //ws.EmitOnPing = true;
-
         // Add OnError event listener
-        ws.OnError += (sender, e) =>
+        ws.OnError += (errorMessage) =>
         {
-            var ex = e.Exception;
-            Debug.Log("ws error: " +  ex.StackTrace);
+            Debug.Log("ws error: " + errorMessage);
         };
 
         // Add OnClose event listener
-        ws.OnClose += (sender, e) =>
+        ws.OnClose += (code) =>
         {
-            if (e.Code == (int) CloseStatusCode.Abnormal)
+            if (code == WebSocketCloseCode.Abnormal)
             {
-                SceneManager.LoadScene("Main Menu");
+                SceneManager.LoadScene(MainMenuScene);
             }
-            Debug.Log("WS closed with code: " + e.Code);
-            Debug.Log("WS closed with reason: " + e.Reason);
+            Debug.Log("WS closed with code: " + code);
 
             connected = false;
         };
@@ -120,7 +98,7 @@ public class WebManager : MonoBehaviour
     private void DisconnectFromServer()
     {
         if (connected) {
-            ws.Close(CloseStatusCode.Normal, "disconnect");
+            ws.Close(WebSocketCloseCode.Normal, "disconnect");
         }
     }
 

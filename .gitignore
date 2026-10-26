@@ -41,3 +41,6 @@ sysinfo.txt
 [Uu]ser[Ss]ettings/
 .vscode/
 *.slnx
+
+# The WebGL build Locus serves (radioactive-web) is committed on purpose
+!/web/Build/

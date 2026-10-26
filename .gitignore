@@ -35,3 +35,12 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+
+# Unity 6 editor state, not part of the project
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+.vscode/
+*.slnx
+
+# The WebGL build Locus serves (radioactive-web) is committed on purpose
+!/web/Build/

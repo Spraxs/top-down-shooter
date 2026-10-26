@@ -7,7 +7,7 @@ using UnityEditor.Build.Reporting;
 /// Builds the WebGL player from the command line:
 ///
 ///   Unity -batchmode -quit -projectPath . -buildTarget WebGL \
-///         -executeMethod WebGLBuild.Build [-outputPath Builds/WebGL]
+///         -executeMethod WebGLBuild.Build [-outputPath web]
 ///
 /// Uncompressed output, so any static file server can serve it without
 /// Content-Encoding headers for .br or .gz files.
@@ -15,7 +15,8 @@ using UnityEditor.Build.Reporting;
 public static class WebGLBuild
 {
     private const string OutputPathArgument = "-outputPath";
-    private const string DefaultOutputPath = "Builds/WebGL";
+    // Served by Locus as the static application radioactive-web (--directory web)
+    private const string DefaultOutputPath = "web";
 
     public static void Build()
     {

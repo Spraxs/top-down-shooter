@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-50 -50 100 100">
+  <circle r="48" fill="#1d544f"/>
+  <g fill="#ffc757">
+    <circle r="8"/>
+    <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z"/>
+    <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z" transform="rotate(120)"/>
+    <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z" transform="rotate(240)"/>
+  </g>
+</svg>

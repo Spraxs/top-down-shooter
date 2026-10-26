@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{{ PRODUCT_NAME }}}</title>
+    <link rel="icon" href="TemplateData/radiation.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="TemplateData/style.css">
+  </head>
+  <body>
+    <div id="game" style="--width: {{{ WIDTH }}}px; --ratio: {{{ WIDTH }}} / {{{ HEIGHT }}}">
+      <canvas id="unity-canvas" width="{{{ WIDTH }}}" height="{{{ HEIGHT }}}" tabindex="-1"></canvas>
+
+      <div id="loading" role="status" aria-live="polite">
+        <svg class="trefoil" viewBox="-50 -50 100 100" aria-hidden="true">
+          <circle r="8" />
+          <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z" />
+          <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z" transform="rotate(120)" />
+          <path d="M 0 -14 L -24.2 -42 A 48 48 0 0 1 24.2 -42 Z" transform="rotate(240)" />
+        </svg>
+        <h1 class="title">{{{ PRODUCT_NAME }}}</h1>
+        <div class="bar" aria-hidden="true"><div class="fill" id="loading-fill"></div></div>
+        <p class="label" id="loading-label">Loading 0%</p>
+      </div>
+    </div>
+
+    <script>
+      var game = document.querySelector("#game");
+      var canvas = document.querySelector("#unity-canvas");
+      var loading = document.querySelector("#loading");
+      var fill = document.querySelector("#loading-fill");
+      var label = document.querySelector("#loading-label");
+
+      if (/iPhone|iPad|iPod|Android/i.test(navigator.userAgent)) {
+        // On a phone the game fills the screen.
+        game.classList.add("fullscreen");
+      }
+
+      // Downloading is most of the wait; at 100% the browser still compiles and starts the game.
+      function showProgress(progress) {
+        var percent = Math.round(progress * 100);
+        fill.style.width = percent + "%";
+        label.textContent = percent < 100 ? "Loading " + percent + "%" : "Starting";
+      }
+
+      function showError(message) {
+        loading.classList.add("failed");
+        label.textContent = "Could not load the game";
+        console.error(message);
+      }
+
+      var script = document.createElement("script");
+      script.src = "Build/{{{ LOADER_FILENAME }}}";
+      script.onload = function () {
+        createUnityInstance(canvas, {
+          arguments: [],
+          dataUrl: "Build/{{{ DATA_FILENAME }}}",
+          frameworkUrl: "Build/{{{ FRAMEWORK_FILENAME }}}",
+#if USE_WASM
+          codeUrl: "Build/{{{ CODE_FILENAME }}}",
+#endif
+          streamingAssetsUrl: "StreamingAssets",
+          // Render at the game's own size and let the page scale the picture: the UI was laid out for it.
+          matchWebGLToCanvasSize: false,
+          companyName: {{{ JSON.stringify(COMPANY_NAME) }}},
+          productName: {{{ JSON.stringify(PRODUCT_NAME) }}},
+          productVersion: {{{ JSON.stringify(PRODUCT_VERSION) }}},
+        }, showProgress).then(function () {
+          loading.classList.add("done");
+          loading.addEventListener("transitionend", function () { loading.remove(); });
+        }).catch(showError);
+      };
+      script.onerror = function () { showError("The game loader could not be downloaded."); };
+      document.body.appendChild(script);
+    </script>
+  </body>
+</html>

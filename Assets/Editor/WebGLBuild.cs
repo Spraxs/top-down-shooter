@@ -10,22 +10,26 @@ using UnityEditor.Build.Reporting;
 ///   Unity -batchmode -quit -projectPath . -buildTarget WebGL \
 ///         -executeMethod WebGLBuild.Build [-outputPath web]
 ///
-/// Uncompressed output, so any static file server can serve it without
-/// Content-Encoding headers for .br or .gz files.
+/// The page is the Radioactive template (Assets/WebGLTemplates/Radioactive), with a
+/// loading screen. The build is gzip-compressed and the browser decompresses it itself
+/// (decompression fallback), so a plain static file server needs no Content-Encoding
+/// headers. Data caching keeps it in the browser for the next visit.
 /// </summary>
 public static class WebGLBuild
 {
     private const string OutputPathArgument = "-outputPath";
     // Served by Locus as the static application radioactive-web (--directory web)
     private const string DefaultOutputPath = "web";
-    private const string IndexFile = "index.html";
-    private const string TitleTag = "<title>";
-    private const string TemplateTitlePrefix = "<title>Unity Web Player | ";
+    private const string Template = "PROJECT:Radioactive";
+    // Unity's output; the rest of the output directory (Dockerfile, .dockerignore) is not its own.
+    private const string BuildDirectory = "Build";
 
     public static void Build()
     {
-        PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Disabled;
-        PlayerSettings.WebGL.decompressionFallback = false;
+        PlayerSettings.WebGL.template = Template;
+        PlayerSettings.WebGL.compressionFormat = WebGLCompressionFormat.Gzip;
+        PlayerSettings.WebGL.decompressionFallback = true;
+        PlayerSettings.WebGL.dataCaching = true;
 
         string[] scenes = EditorBuildSettings.scenes
             .Where(scene => scene.enabled)
@@ -33,6 +37,7 @@ public static class WebGLBuild
             .ToArray();
 
         string outputPath = OutputPath();
+        RemovePreviousBuild(outputPath);
 
         BuildReport report = BuildPipeline.BuildPlayer(new BuildPlayerOptions
         {
@@ -46,16 +51,17 @@ public static class WebGLBuild
         {
             throw new Exception("WebGL build failed: " + report.summary.result);
         }
-
-        UseProductNameAsTitle(outputPath);
     }
 
-    // The default template titles the page "Unity Web Player | <product>"; the game is just its name.
-    private static void UseProductNameAsTitle(string outputPath)
+    // File names change with the settings (.unityweb when compressed); old ones would stay behind.
+    private static void RemovePreviousBuild(string outputPath)
     {
-        string indexPath = Path.Combine(outputPath, IndexFile);
-        string page = File.ReadAllText(indexPath);
-        File.WriteAllText(indexPath, page.Replace(TemplateTitlePrefix, TitleTag));
+        string buildPath = Path.Combine(outputPath, BuildDirectory);
+
+        if (Directory.Exists(buildPath))
+        {
+            Directory.Delete(buildPath, true);
+        }
     }
 
     private static string OutputPath()
